@@ -29,7 +29,7 @@ Os dados propulsivos são adquiridos usando a biblioteca RocketCEA.
 
 - Vídeo de Tutorial: 
 
-  [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)]([https://www.youtube.com/watch?v=FLz8qtGiTjw](https://youtu.be/Crxc9OeuSTg))
+  [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/Crxc9OeuSTg)
 
 - Como você pode me ajudar a melhorar este código:
 
