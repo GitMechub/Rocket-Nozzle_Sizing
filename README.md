@@ -5,7 +5,7 @@ This Jupyter Notebook enables you to design three different types of nozzle cont
 - Bell-shaped;
 - Spike.
 
-The code generates a graph for each type of nozzle contour, a table with its main dimensions and a .xlsx spreadsheet containing all the coordinates for each design.
+The code generates a graph for each type of nozzle contour, a table with its main dimensions, and a .xlsx spreadsheet containing all the coordinates for each design.
 
 The propulsive data is acquired using the RocketCEA library.
 
