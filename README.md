@@ -1,11 +1,11 @@
 # Rocket-Nozzle_Sizing
  
-This Jupyter Notebook allows you to design three different types of nozzle contours based on the propulsive parameters of your rocket engine: 
+This Jupyter Notebook enables you to design three different types of nozzle contours based on the propulsive parameters of your rocket engine: 
 - Conical;
 - Bell-shaped;
 - Spike.
 
-The code generates a graph for each type of nozzle contour and creates a .xlsx spreadsheet containing all the coordinates for each design.
+The code generates a graph for each type of nozzle contour, a table with its main dimensions and a .xlsx spreadsheet containing all the coordinates for each design.
 
 The propulsive data is acquired using the RocketCEA library.
 
@@ -23,7 +23,7 @@ Este Jupyter Notebook permite que você projete três diferentes tipos de contor
 - Em forma de sino;
 - Spike.
   
-O código gera um gráfico para cada tipo de contorno de bocal e cria uma planilha .xlsx contendo todas as coordenadas para cada design.
+O código gera um gráfico para cada tipo de contorno de bocal, uma tabela com suas principais dimensões e uma planilha .xlsx contendo todas as coordenadas para cada design.
 
 Os dados propulsivos são adquiridos usando a biblioteca RocketCEA.
 
