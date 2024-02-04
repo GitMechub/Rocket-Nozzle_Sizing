@@ -5,9 +5,9 @@ This Jupyter Notebook allows you to design three different types of nozzle conto
 - Bell-shaped;
 - Spike.
 
-The code generates a graph for each type of nozzle contour and exports a .xlsx spreadsheet containing all the coordinates for each design.
+The code generates a graph for each type of nozzle contour and generates a .xlsx spreadsheet containing all the coordinates for each design.
 
-The propulsive data is acquired using the Rocket CEA library.
+The propulsive data is acquired using the RocketCEA library.
 
 - Tutorial Video: 
 
@@ -23,9 +23,9 @@ Este Jupyter Notebook permite que você projete três diferentes tipos de contor
 - Em forma de sino;
 - Spike.
   
-O código gera um gráfico para cada tipo de contorno de bocal e exporta uma planilha .xlsx contendo todas as coordenadas para cada design.
+O código gera um gráfico para cada tipo de contorno de bocal e gera uma planilha .xlsx contendo todas as coordenadas para cada design.
 
-Os dados propulsivos são adquiridos usando a biblioteca Rocket CEA.
+Os dados propulsivos são adquiridos usando a biblioteca RocketCEA.
 
 - Vídeo de Tutorial: 
 
