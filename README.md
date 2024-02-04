@@ -11,7 +11,7 @@ The propulsive data is acquired using the RocketCEA library.
 
 - Tutorial Video: 
 
-  [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)]([https://www.youtube.com/watch?v=FLz8qtGiTjw](https://youtu.be/Crxc9OeuSTg))
+  [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/Crxc9OeuSTg)
 
 - How can you help me to improve this code:
 
