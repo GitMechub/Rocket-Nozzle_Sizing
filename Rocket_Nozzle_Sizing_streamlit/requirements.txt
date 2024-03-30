@@ -1,0 +1,8 @@
+matplotlib==3.8.3
+numpy==1.26.4
+pandas==2.2.1
+Pillow==10.2.0
+plotly==5.20.0
+rocketcea==1.2.0
+streamlit==1.32.2
+streamlit_player==0.1.5
