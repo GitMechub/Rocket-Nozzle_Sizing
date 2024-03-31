@@ -1,2 +1,8 @@
+meson
+importlib-metadata
+subprocess.run
+toml
+numpy
+setuptools-metadata
 rocketcea
 
