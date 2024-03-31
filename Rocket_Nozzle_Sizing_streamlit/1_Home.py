@@ -25,9 +25,9 @@ hide_menu = '''
         '''
 st.markdown(hide_menu, unsafe_allow_html=True)
 
-from rocketcea.cea_obj import add_new_fuel, add_new_oxidizer
+#from rocketcea.cea_obj import add_new_fuel, add_new_oxidizer
 
-from rocketcea.cea_obj_w_units import CEA_Obj
+#from rocketcea.cea_obj_w_units import CEA_Obj
 
 from pylab import *
 
