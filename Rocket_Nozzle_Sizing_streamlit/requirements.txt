@@ -1,7 +1,2 @@
-pandas==2.2.1
-pillow==10.2.0
-plotly==5.20.0
-streamlit==1.32.2
-streamlit-player==0.1.5
-rocketcea
+rocketcea==1.2.0
 
