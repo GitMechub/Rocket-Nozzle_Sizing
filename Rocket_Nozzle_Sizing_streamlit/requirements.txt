@@ -5,6 +5,5 @@ pillow==10.2.0
 plotly==5.20.0
 streamlit==1.32.2
 streamlit-player==0.1.5
-pip==23.3.2
-rocketcea==1.1.34
+rocketcea
 
