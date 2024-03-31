@@ -1,8 +1,10 @@
 matplotlib==3.8.3
-numpy==1.26.3
+numpy<=1.26.4
 pandas==2.2.1
 pillow==10.2.0
 plotly==5.20.0
 streamlit==1.32.2
 streamlit-player==0.1.5
+pip==23.3.2
+rocketcea==1.1.34
 
