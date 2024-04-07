@@ -695,7 +695,36 @@ try:
             #
     
             st.write(table_spike_dimensions)
+
+
+    # CEA Results
+    from rocketcea.cea_obj import add_new_fuel, add_new_oxidizer
+
+    from rocketcea.cea_obj import CEA_Obj
+
+    try:
+        st.header("CEA Results", anchor=False, divider='gray')
+        initial_params = st.session_state['initial_params']
+        ispObj = st.session_state['IsoObj']
+        OF = st.session_state['OF']
+        P_1 = st.session_state['P_1']
+        P_3 = st.session_state['P_3']
+
+        dadosCEA = ispObj.get_full_cea_output(Pc=P_1 * 1e-5, MR=OF, eps=initial_params['eps'], PcOvPe=P_1 / P_3,
+                                              frozen=1, frozenAtThroat=1, pc_units='bar')
+        st.download_button("Download NASA's CEA Full Output", str(dadosCEA), file_name='CEA_Output')
+
+    except:
+        pass
+
 except:
     st.markdown("Click on 'Run'")
+
+    path_home = os.path.dirname(__file__)
+    my_file_home = path_home[0:-6]
+    my_file_home = my_file_home + "/1_Home.py"
+    st.page_link(my_file_home, label="Home", icon="🚀")
+
     pass
+
 
