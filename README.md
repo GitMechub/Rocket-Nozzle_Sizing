@@ -1,6 +1,8 @@
 # Rocket-Nozzle_Sizing
+
+https://rocketnozzlesizing.streamlit.app/
  
-This Jupyter Notebook enables you to design three different types of nozzle contours based on the propulsive parameters of your rocket engine: 
+This Python code enables you to design three different types of nozzle contours based on the propulsive parameters of your rocket engine: 
 - Conical;
 - Bell-shaped;
 - Spike.
