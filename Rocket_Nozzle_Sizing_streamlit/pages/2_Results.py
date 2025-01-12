@@ -264,9 +264,7 @@ try:
             ## Fechar o sketch, caso necessário
             conical_nozzle = sketch.close().assemble(tag="face")
             
-            exporters.export(conical_nozzle, 'conical_nozzle_sketch.STEP')
-            
-            #displayCAD("/content/conical_nozzle_sketch.stl")
+            exporters.export(conical_nozzle, str(path)+'/conical_nozzle_sketch.STEP')
             
             
             ## 3D
@@ -279,9 +277,24 @@ try:
             tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
             
             ## Exportar como STL
-            exporters.export(tubeira, 'display_conical_nozzle_3d.stl')
+            exporters.export(tubeira, str(path)+'/display_conical_nozzle_3d.stl')
             
-            displayCAD("/content/display_conical_nozzle_3d.stl")
+            displayCAD(str(path)+"/display_conical_nozzle_3d.stl")
+            
+            # DOWNLOAD SKETCH
+            st.markdown("Nozzle's Sketch .stp :")
+            with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
+
+                  # Export to a STEP file
+                  step_file = str(path)+"/conical_nozzle_sketch.STEP"
+    
+                  # Create a download button
+                  st.download_button(
+                          label="Download Nozzle's Sketch",
+                          data=open(step_file, "rb").read(),
+                          file_name="conical_nozzle_sketch.STEP",
+                          mime="application/step"
+                  )
     
     
         if nozzle_choice == "Bell":
@@ -498,9 +511,7 @@ try:
             ## Fechar o sketch, caso necessário
             conical_nozzle = sketch.close().assemble(tag="face")
             
-            exporters.export(conical_nozzle, 'bell_nozzle_sketch.STEP')
-            
-            #displayCAD("/content/conical_nozzle_sketch.stl")
+            exporters.export(conical_nozzle, str(path)+'/bell_nozzle_sketch.STEP')
             
             
             ## 3D
@@ -513,9 +524,24 @@ try:
             tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
             
             ## Exportar como STL
-            exporters.export(tubeira, 'display_bell_nozzle_3d.stl')
+            exporters.export(tubeira, str(path)+'/display_bell_nozzle_3d.stl')
             
-            displayCAD("/content/display_bell_nozzle_3d.stl")
+            displayCAD(str(path)+"/display_bell_nozzle_3d.stl")
+            
+            # DOWNLOAD SKETCH
+            st.markdown("Nozzle's Sketch .stp :")
+            with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
+
+                  # Export to a STEP file
+                  step_file = str(path)+"/bell_nozzle_sketch.STEP"
+    
+                  # Create a download button
+                  st.download_button(
+                          label="Download Nozzle's Sketch",
+                          data=open(step_file, "rb").read(),
+                          file_name="bell_nozzle_sketch.STEP",
+                          mime="application/step"
+                  )
     
     
         if nozzle_choice == "Spike":
@@ -893,10 +919,7 @@ try:
             result = sketch1 + sketch2
             
             ## Exportar o modelo como STL
-            exporters.export(result, 'spike_nozzle_sketch.STEP')
-            
-            ## Visualizar o modelo CAD
-            #displayCAD("/content/spike_nozzle1.stl")
+            exporters.export(result, str(path)+'/spike_nozzle_sketch.STEP')
             
             
             ## 3D
@@ -919,10 +942,25 @@ try:
             modelo_combinado = solido1.union(solido2)
             
             ### Exportar como STL
-            exporters.export(modelo_combinado, 'display_spike_nozzle_3d.stl')
+            exporters.export(modelo_combinado, str(path)+'/display_spike_nozzle_3d.stl')
             
             ### Visualizar o modelo 3D
-            displayCAD("/content/display_spike_nozzle_3d.stl")
+            displayCAD(str(path)+"/display_spike_nozzle_3d.stl")
+
+            # DOWNLOAD SKETCH
+            st.markdown("Nozzle's Sketch .stp :")
+            with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
+
+                  # Export to a STEP file
+                  step_file = str(path)+"/spike_nozzle_sketch.STEP"
+    
+                  # Create a download button
+                  st.download_button(
+                          label="Download Nozzle's Sketch",
+                          data=open(step_file, "rb").read(),
+                          file_name="spike_nozzle_sketch.STEP",
+                          mime="application/step"
+                  )
     
 
     # CEA Results
