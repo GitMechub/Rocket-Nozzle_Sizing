@@ -996,6 +996,242 @@ excel_writer.save()
 dadosCEA = ispObj.get_full_cea_output( Pc=P_1*1e-5, MR=OF, eps=initial_params['eps'], PcOvPe=P_1/P_3, frozen=1, frozenAtThroat=1, pc_units='bar')
 print(dadosCEA)
 
+"""# CAD"""
+#pip install cadquery
+#pip install pyvista
+import cadquery as cq
+from cadquery import exporters
+import pyvista as pv
+
+def displayCAD(file_):
+
+  # Carregar arquivo CAD (pode ser .stl, .step, .vtk, etc.)
+  filename = file_  # Altere o formato do arquivo
+  mesh = pv.read(filename)
+
+  # Obter vértices e faces da malha
+  x, y, z = mesh.points.T
+  faces = mesh.faces.reshape(-1, 4)[:, 1:]
+
+  # Criar visualização interativa com Plotly
+  fig = go.Figure(data=[go.Mesh3d(
+      x=x, y=y, z=z,
+      i=faces[:, 0], j=faces[:, 1], k=faces[:, 2],
+      color='lightblue', opacity=0.5
+  )])
+
+  fig.update_layout(scene=dict(aspectmode='data'), title="Modelo Interativo")
+  fig.show()
+
+# Conical nozzle
+
+## Combinar os pontos das listas conical_xy_1, conical_xy_2 e conical_xy_3
+lista_pontos_c = [
+    (round(conical_xy_1['x (m)'][i]*1e3,4), round(conical_xy_1['y (m)'][i]*1e3,4))
+    for i in range(len(conical_xy_1['x (m)']))
+] + [
+    (round(conical_xy_2['x (m)'][i]*1e3,4), round(conical_xy_2['y (m)'][i]*1e3,4))
+    for i in range(len(conical_xy_2['x (m)']))
+] + [
+    (round(conical_xy_3['x (m)'][i]*1e3,4), round(conical_xy_3['y (m)'][i]*1e3,4))
+    for i in range(len(conical_xy_3['x (m)']))
+]
+
+## Criar os pontos no eixo central
+lista_pontos_c_centro = [(ponto[0], 0) for ponto in lista_pontos_c]
+
+## Combinar lista_pontos com os pontos do eixo central (revertidos)
+lista_pontos_c.extend(reversed(lista_pontos_c_centro))
+
+lista_pontos_c_ = [lista_pontos_c[0]]
+## Resultado
+for i in range(1, len(lista_pontos_c)):
+    if lista_pontos_c[i] != lista_pontos_c[i - 1]:  # Comparar com o ponto anterior
+        lista_pontos_c_.append(lista_pontos_c[i])
+
+
+## Adicionar segmentos entre os pontos
+sketch = cq.Sketch()
+
+for i in range(len(lista_pontos_c_) - 1):
+    sketch = sketch.segment(lista_pontos_c_[i], lista_pontos_c_[i + 1])
+
+## Fechar o sketch, caso necessário
+conical_nozzle = sketch.close().assemble(tag="face")
+
+exporters.export(conical_nozzle, 'conical_nozzle_sketch.STEP')
+
+#displayCAD("/content/conical_nozzle_sketch.stl")
+
+
+## 3D
+
+### Criar o esboço no CadQuery
+perfil = [(r, z) for z, r in lista_pontos_c_]  # Inverter para (r, z) para o plano XY
+esboco = cq.Workplane("XZ").polyline(perfil).close()  # Fechar o perfil
+
+### Revolver ao redor do eixo Z
+tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
+
+## Exportar como STL
+exporters.export(tubeira, 'display_conical_nozzle_3d.stl')
+
+#displayCAD("/content/display_conical_nozzle_3d.stl")
+
+# Bell nozzle
+
+## Combinar os pontos das listas bell_xy_1, bell_xy_2 e bell_xy_3
+lista_pontos_b = [
+    (round(bell_xy_1['x (m)'][i]*1e3,4), round(bell_xy_1['y (m)'][i]*1e3,4))
+    for i in range(len(bell_xy_1['x (m)']))
+] + [
+    (round(bell_xy_2['x (m)'][i]*1e3,4), round(bell_xy_2['y (m)'][i]*1e3,4))
+    for i in range(len(bell_xy_2['x (m)']))
+] + [
+    (round(bell_xy_3['x (m)'][i]*1e3,4), round(bell_xy_3['y (m)'][i]*1e3,4))
+    for i in range(len(bell_xy_3['x (m)']))
+]
+
+## Criar os pontos no eixo central
+lista_pontos_b_centro = [(ponto[0], 0) for ponto in lista_pontos_b]
+
+## Combinar lista_pontos com os pontos do eixo central (revertidos)
+lista_pontos_b.extend(reversed(lista_pontos_b_centro))
+
+lista_pontos_b_ = [lista_pontos_b[0]]
+## Resultado
+for i in range(1, len(lista_pontos_b)):
+    if lista_pontos_b[i] != lista_pontos_b[i - 1]:  # Comparar com o ponto anterior
+        lista_pontos_b_.append(lista_pontos_b[i])
+
+
+## Adicionar segmentos entre os pontos
+sketch = cq.Sketch()
+
+for i in range(len(lista_pontos_b_) - 1):
+    sketch = sketch.segment(lista_pontos_b_[i], lista_pontos_b_[i + 1])
+
+## Fechar o sketch, caso necessário
+conical_nozzle = sketch.close().assemble(tag="face")
+
+exporters.export(conical_nozzle, 'bell_nozzle_sketch.STEP')
+
+#displayCAD("/content/conical_nozzle_sketch.stl")
+
+
+## 3D
+
+### Criar o esboço no CadQuery
+perfil = [(r, z) for z, r in lista_pontos_b_]  # Inverter para (r, z) para o plano XY
+esboco = cq.Workplane("XZ").polyline(perfil).close()  # Fechar o perfil
+
+### Revolver ao redor do eixo Z
+tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
+
+## Exportar como STL
+exporters.export(tubeira, 'display_bell_nozzle_3d.stl')
+
+#displayCAD("/content/display_bell_nozzle_3d.stl")
+
+# Spike nozzle
+
+## Tratar os pontos da lista spike_xy_1
+lista_pontos_s = [
+    (round(x * 1e3, 4), round(y * 1e3, 4))
+    for x, y in zip(spike_xy_1['x (m)'], spike_xy_1['y (m)'])
+    if not (math.isnan(x) or math.isnan(y))
+]
+## Criar os pontos no eixo central
+lista_pontos_s_centro = [(ponto[0], 0) for ponto in lista_pontos_s]
+
+## Combinar lista_pontos com os pontos do eixo central (revertidos)
+lista_pontos_s.extend(reversed(lista_pontos_s_centro))
+
+lista_pontos_s_ = [lista_pontos_s[0]]
+
+## Resultado
+for i in range(1, len(lista_pontos_s)):
+    if lista_pontos_s[i] != lista_pontos_s[i - 1]:  # Comparar com o ponto anterior
+        lista_pontos_s_.append(lista_pontos_s[i])
+
+## Tratar os pontos da lista spike_xy_2
+lista_pontos_s2 = [
+    (round(x * 1e3, 4), round(y * 1e3, 4))
+    for x, y in zip(spike_xy_2['x (m)'], spike_xy_2['y (m)'])
+    if not (math.isnan(x) or math.isnan(y))
+]
+
+## Criar os pontos afastados
+lista_pontos_s2_centro = [(ponto[0], ponto[1] + round(max(spike_xy_1['y (m)'])*1e3,4)/2) for ponto in lista_pontos_s2]
+
+## Combinar lista_pontos com os pontos do eixo afastado (revertidos)
+lista_pontos_s2.extend(reversed(lista_pontos_s2_centro))
+
+lista_pontos_s2_ = [lista_pontos_s2[0]]
+
+## Resultado
+for i in range(1, len(lista_pontos_s2)):
+    if lista_pontos_s2[i] != lista_pontos_s2[i - 1]:  # Comparar com o ponto anterior
+        lista_pontos_s2_.append(lista_pontos_s2[i])
+
+
+## Criar o esboço inicial
+sketch1 = cq.Sketch()
+
+## Adicionar a primeira curva
+for i in range(len(lista_pontos_s_) - 1):
+    sketch1 = sketch1.segment(lista_pontos_s_[i], lista_pontos_s_[i + 1])
+
+sketch1 = sketch1.close().assemble(tag="face").reset()
+
+sketch2 = cq.Sketch()
+
+## Adicionar a segunda curva no mesmo esboço
+for i in range(len(lista_pontos_s2_) - 1):
+    sketch2 = sketch2.segment(lista_pontos_s2_[i], lista_pontos_s2_[i + 1])
+
+## Fechar o esboço final
+sketch2 = sketch2.close().assemble(tag="face1").reset()
+
+result = sketch1 + sketch2
+
+## Exportar o modelo como STL
+exporters.export(result, 'spike_nozzle_sketch.STEP')
+
+## Visualizar o modelo CAD
+#displayCAD("/content/spike_nozzle1.stl")
+
+
+## 3D
+
+### Lista de pontos para o primeiro esboço
+perfil1 = [(r, z) for z, r in lista_pontos_s_]  # (r, z) no plano XZ
+
+### Criar o primeiro esboço no plano XZ e revolver
+esboco1 = cq.Workplane("XZ").polyline(perfil1).close()
+solido1 = esboco1.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # Revolve ao redor do eixo Z
+
+### Lista de pontos para o segundo esboço
+perfil2 = [(r, z) for z, r in lista_pontos_s2_]  # Outra lista de pontos
+
+### Criar o segundo esboço no mesmo plano XZ e revolver
+esboco2 = cq.Workplane("XZ").polyline(perfil2).close()
+solido2 = esboco2.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))
+
+### Combinar os dois sólidos
+modelo_combinado = solido1.union(solido2)
+
+### Exportar como STL
+exporters.export(modelo_combinado, 'display_spike_nozzle_3d.stl')
+
+### Visualizar o modelo 3D
+#displayCAD("/content/display_spike_nozzle_3d.stl")
+
+displayCAD("/content/display_conical_nozzle_3d.stl")
+displayCAD("/content/display_bell_nozzle_3d.stl")
+displayCAD("/content/display_spike_nozzle_3d.stl")
+
+
 """# REFERENCES
 
 1.   Sutton, G.P. and Biblarz, O. (2001). Rocket Propulsion Elements. A Wiley Interscience publication. Wiley. ISBN: 9780471326427. [Online] Available at: < https://books.google.com.br/books?id=LQbDOxg3XZcC >.
