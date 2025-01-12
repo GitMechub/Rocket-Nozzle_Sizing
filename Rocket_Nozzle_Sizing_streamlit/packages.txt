@@ -1,3 +1,1 @@
-gfortran
 libgl1
-libgl1-mesa-glx
