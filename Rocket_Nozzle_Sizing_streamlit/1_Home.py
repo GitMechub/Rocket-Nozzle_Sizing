@@ -43,6 +43,8 @@ import matplotlib.pyplot as plt
 
 import plotly.graph_objects as go
 
+import cadquery as cq
+
 st.title("Rocket Nozzle Sizing v1.0.0", anchor=False)
 st.subheader("Setup", divider="gray", anchor=False)
 
