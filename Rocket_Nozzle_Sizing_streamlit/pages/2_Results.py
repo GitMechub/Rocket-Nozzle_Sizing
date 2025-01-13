@@ -286,7 +286,7 @@ try:
             
             # DOWNLOAD SKETCH
             st.markdown("Nozzle's Sketch .stp :")
-            with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
+            '''with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
             
                   # Export to a STEP file
                   step_file = str(path)+"/conical_nozzle_sketch.STEP"
@@ -297,9 +297,9 @@ try:
                           data=open(step_file, "rb").read(),
                           file_name="conical_nozzle_sketch.STEP",
                           mime="application/step"
-                  )
+                  )'''
             
-            '''stl_from_file(
+            stl_from_file(
                 file_path=step_file,          # Path to the STL file
                 color='#FF9900',                 # Color of the STL file (hexadecimal value)
                 material='material',             # Material of the STL file ('material', 'flat', or 'wireframe')
@@ -312,7 +312,7 @@ try:
                 height=500,                      # Height of the viewer frame
                 max_view_distance=1000,          # Maximum viewing distance for the camera
                 key=None                         # Streamlit component key
-            )'''
+            )
                 
             st.write(table_conical_dimensions)
     
