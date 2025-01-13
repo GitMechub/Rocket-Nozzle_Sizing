@@ -48,6 +48,8 @@ import cadquery as cq
 from cadquery import exporters
 import pyvista as pv
 
+#from streamlit_stl import stl_from_file
+
 # Last not null/empty list value
 def last_valid(lst):
     return next((x for x in reversed(lst) if x and not isnan(x)), None) # or 'null'
