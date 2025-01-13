@@ -48,7 +48,7 @@ import cadquery as cq
 from cadquery import exporters
 import pyvista as pv
 
-#from streamlit_stl import stl_from_file
+from streamlit_stl import stl_from_file
 
 # Last not null/empty list value
 def last_valid(lst):
@@ -285,10 +285,10 @@ try:
             # DOWNLOAD SKETCH
             st.markdown("Nozzle's Sketch .stp :")
             with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
-
+            
                   # Export to a STEP file
                   step_file = str(path)+"/conical_nozzle_sketch.STEP"
-    
+            
                   # Create a download button
                   st.download_button(
                           label="Download Nozzle's Sketch",
@@ -296,6 +296,21 @@ try:
                           file_name="conical_nozzle_sketch.STEP",
                           mime="application/step"
                   )
+            
+            stl_from_file(
+                file_path=step_file,          # Path to the STL file
+                color='#FF9900',                 # Color of the STL file (hexadecimal value)
+                material='material',             # Material of the STL file ('material', 'flat', or 'wireframe')
+                auto_rotate=True,                # Enable auto-rotation of the STL model
+                opacity=1,                       # Opacity of the STL model (0 to 1)
+                shininess=100,                   # How shiny the specular highlight is, when using the 'material' style.
+                cam_v_angle=60,                  # Vertical angle (in degrees) of the camera
+                cam_h_angle=-90,                 # Horizontal angle (in degrees) of the camera
+                cam_distance=None,               # Distance of the camera from the object (defaults to 3x bounding box size)
+                height=500,                      # Height of the viewer frame
+                max_view_distance=1000,          # Maximum viewing distance for the camera
+                key=None                         # Streamlit component key
+            )
                 
             st.write(table_conical_dimensions)
     
