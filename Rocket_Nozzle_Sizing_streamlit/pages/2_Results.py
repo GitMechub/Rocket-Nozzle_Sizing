@@ -278,7 +278,7 @@ try:
             ## Exportar como STL
             exporters.export(tubeira, str(path)+'/display_conical_nozzle_3d.stl')
             
-            #displayCAD(str(path)+"/display_conical_nozzle_3d.stl")
+            displayCAD(str(path)+"/display_conical_nozzle_3d.stl")
             
             # DOWNLOAD SKETCH
             st.markdown("Nozzle's Sketch .stp :")
