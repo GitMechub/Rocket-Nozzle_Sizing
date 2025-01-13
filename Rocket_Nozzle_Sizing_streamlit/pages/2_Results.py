@@ -299,7 +299,7 @@ try:
                           mime="application/step"
                   )
             
-            stl_from_file(
+            '''stl_from_file(
                 file_path=step_file,          # Path to the STL file
                 color='#FF9900',                 # Color of the STL file (hexadecimal value)
                 material='material',             # Material of the STL file ('material', 'flat', or 'wireframe')
@@ -312,7 +312,7 @@ try:
                 height=500,                      # Height of the viewer frame
                 max_view_distance=1000,          # Maximum viewing distance for the camera
                 key=None                         # Streamlit component key
-            )
+            )'''
                 
             st.write(table_conical_dimensions)
     
