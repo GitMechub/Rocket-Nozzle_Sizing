@@ -253,8 +253,8 @@ try:
             for i in range(1, len(lista_pontos_c)):
                 if lista_pontos_c[i] != lista_pontos_c[i - 1]:  # Comparar com o ponto anterior
                     lista_pontos_c_.append(lista_pontos_c[i])
+
             
-            st.write('test')
             ## Adicionar segmentos entre os pontos
             sketch = cq.Sketch()
             
@@ -263,13 +263,9 @@ try:
             
             ## Fechar o sketch, caso necessário
             conical_nozzle = sketch.close().assemble(tag="face")
-            st.write(path)
             cq.exporters.export(conical_nozzle, 'conical_nozzle_sketch.STEP')
 
-            #step_file = str(path)+"/c_nozzle_sketch.stp"
-            #cq.exporters.export(conical_nozzle, step_file, "STEP")
             
-            st.write('test2')
             ## 3D
             
             ### Criar o esboço no CadQuery
@@ -998,7 +994,7 @@ except:
 
 #cq.exporters.export(conical_nozzle, 'conical_nozzle_sketch.stl')
 
-step_file = str(path)+"/conical_nozzle_sketch.STEP"
+'''step_file = str(path)+"/conical_nozzle_sketch.STEP"
 cq.exporters.export(conical_nozzle, step_file, "STEP")
 
 # DOWNLOAD SKETCH
@@ -1014,6 +1010,6 @@ with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
               data=open(step_file, "rb").read(),
               file_name="conical_nozzle_sketch.STEP",
               mime="application/step"
-      )
+      )'''
 
 
