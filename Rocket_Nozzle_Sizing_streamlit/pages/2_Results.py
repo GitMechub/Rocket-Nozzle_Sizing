@@ -267,6 +267,7 @@ try:
             conical_nozzle = sketch.close().assemble(tag="face")
             st.write('test')
             cq.exporters.export(conical_nozzle, 'conical_nozzle_sketch.STEP')
+            st.write('test2')
 
             
             ## 3D
