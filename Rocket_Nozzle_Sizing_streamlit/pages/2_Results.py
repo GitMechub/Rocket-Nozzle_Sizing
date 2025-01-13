@@ -996,9 +996,24 @@ except:
 
     pass
 
-cq.exporters.export(conical_nozzle, 'conical_nozzle_sketch.stl')
+#cq.exporters.export(conical_nozzle, 'conical_nozzle_sketch.stl')
 
-#step_file = str(path)+"/c_nozzle_sketch.stp"
-#cq.exporters.export(conical_nozzle, step_file, "STEP")
+step_file = str(path)+"/conical_nozzle_sketch.STEP"
+cq.exporters.export(conical_nozzle, step_file, "STEP")
+
+# DOWNLOAD SKETCH
+st.markdown("Nozzle's Sketch .stp :")
+with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
+
+      # Export to a STEP file
+      step_file = str(path)+"/conical_nozzle_sketch.STEP"
+
+      # Create a download button
+      st.download_button(
+              label="Download Nozzle's Sketch",
+              data=open(step_file, "rb").read(),
+              file_name="conical_nozzle_sketch.STEP",
+              mime="application/step"
+      )
 
 
