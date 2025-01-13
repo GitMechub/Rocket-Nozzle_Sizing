@@ -996,4 +996,9 @@ except:
 
     pass
 
+cq.exporters.export(conical_nozzle, 'conical_nozzle_sketch.STEP')
+
+#step_file = str(path)+"/c_nozzle_sketch.stp"
+#cq.exporters.export(conical_nozzle, step_file, "STEP")
+
 
