@@ -1,5 +1,5 @@
 matplotlib==3.10.0
-numpy==2.2.1
+numpy==2.2.3
 pandas==2.2.1
 pillow==10.2.0
 plotly==5.20.0
