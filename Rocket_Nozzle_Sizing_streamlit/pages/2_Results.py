@@ -254,7 +254,7 @@ try:
                 if lista_pontos_c[i] != lista_pontos_c[i - 1]:  # Comparar com o ponto anterior
                     lista_pontos_c_.append(lista_pontos_c[i])
             
-            
+            st.write('test')
             ## Adicionar segmentos entre os pontos
             sketch = cq.Sketch()
             
