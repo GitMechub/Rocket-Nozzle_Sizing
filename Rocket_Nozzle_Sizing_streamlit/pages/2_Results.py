@@ -266,7 +266,7 @@ try:
             
             exporters.export(conical_nozzle, str(path)+'/conical_nozzle_sketch.STEP')
             
-            
+            st.write('test2')
             ## 3D
             
             ### Criar o esboço no CadQuery
