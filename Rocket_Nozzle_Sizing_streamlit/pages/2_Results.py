@@ -263,7 +263,7 @@ try:
             
             ## Fechar o sketch, caso necessário
             conical_nozzle = sketch.close().assemble(tag="face")
-            
+            st.write(path)
             exporters.export(conical_nozzle, str(path)+'/conical_nozzle_sketch.STEP')
             
             st.write('test2')
