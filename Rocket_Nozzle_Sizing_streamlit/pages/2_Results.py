@@ -298,18 +298,18 @@ try:
                   )
             
             stl_from_file(
-                file_path=str(path)+'display_conical_nozzle_3d.stl',          # Path to the STL file
-                color='#FF9900',                 # Color of the STL file (hexadecimal value)
-                material='material',             # Material of the STL file ('material', 'flat', or 'wireframe')
-                auto_rotate=True,                # Enable auto-rotation of the STL model
-                opacity=1,                       # Opacity of the STL model (0 to 1)
-                shininess=100,                   # How shiny the specular highlight is, when using the 'material' style.
-                cam_v_angle=60,                  # Vertical angle (in degrees) of the camera
-                cam_h_angle=-90,                 # Horizontal angle (in degrees) of the camera
-                cam_distance=None,               # Distance of the camera from the object (defaults to 3x bounding box size)
-                height=500,                      # Height of the viewer frame
-                max_view_distance=1000,          # Maximum viewing distance for the camera
-                key=None                         # Streamlit component key
+                file_path=f"{str(path)}/display_conical_nozzle_3d.stl",  # Caminho para o arquivo STL
+                color="#FF9900",                                        # Cor do modelo STL (valor hexadecimal)
+                material="material",                                    # Estilo do material ('material', 'flat' ou 'wireframe')
+                auto_rotate=True,                                       # Habilitar rotação automática do modelo STL
+                opacity=1.0,                                            # Opacidade do modelo STL (de 0 a 1)
+                shininess=100,                                          # Brilho do destaque especular, ao usar o estilo 'material'
+                cam_v_angle=60,                                         # Ângulo vertical (em graus) da câmera
+                cam_h_angle=-90,                                        # Ângulo horizontal (em graus) da câmera
+                cam_distance=None,                                      # Distância da câmera em relação ao objeto (padrão: 3x tamanho da bounding box)
+                height=500,                                             # Altura do quadro de visualização
+                max_view_distance=1000,                                 # Distância máxima de visualização para a câmera
+                key='disp_c_nozzle'                                                # Chave para o componente Streamlit
             )
                 
             st.write(table_conical_dimensions)
