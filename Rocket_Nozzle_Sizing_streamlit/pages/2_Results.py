@@ -299,7 +299,7 @@ try:
                           mime="application/step"
                   )
 
-            success = stl_from_file(
+            stl_from_file(
                 file_path=f"{str(path)}/conical_nozzle_3d.stl",  # Caminho para o arquivo STL
                 color="#FF9900",                                        # Cor do modelo STL (valor hexadecimal)
                 material="material",                                    # Estilo do material ('material', 'flat' ou 'wireframe')
