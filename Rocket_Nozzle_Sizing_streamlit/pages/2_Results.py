@@ -315,9 +315,9 @@ try:
                 
             stl_from_file(
                 file_path=path_,  # Caminho para o arquivo STL
-                color="#D20103",                                        # Cor do modelo STL (valor hexadecimal)
+                color="#0099FF",                                        # Cor do modelo STL (valor hexadecimal)
                 material="material",                                    # Estilo do material ('material', 'flat' ou 'wireframe')
-                auto_rotate=True,                                       # Habilitar rotação automática do modelo STL
+                auto_rotate=False,                                       # Habilitar rotação automática do modelo STL
                 opacity=1.0,                                            # Opacidade do modelo STL (de 0 a 1)
                 shininess=100,                                          # Brilho do destaque especular, ao usar o estilo 'material'
                 cam_v_angle=60,                                         # Ângulo vertical (em graus) da câmera
