@@ -1022,7 +1022,7 @@ except:
 
     pass
 
-file_input = st.file_uploader("Or upload a STL file ", type=["stl"])
+file_input = exporters.export(tubeira, str(path)+'/display_bell_nozzle_3d.stl')
 
 cols = st.columns(5)
 with cols[0]:
@@ -1049,17 +1049,17 @@ with cols[3]:
 
 
 if file_input:
-    stl_from_text(  text=file_input.getvalue(), 
-                    color=color,
-                    material=material,
-                    auto_rotate=auto_rotate,
-                    opacity=opacity,
-                    height=height,
-                    cam_v_angle=cam_v_angle,
-                    cam_h_angle=cam_h_angle,
-                    cam_distance=cam_distance,
-                    max_view_distance=max_view_distance,
-                    key='example2')
+stl_from_text(  text=file_input.getvalue(), 
+                color=color,
+                material=material,
+                auto_rotate=auto_rotate,
+                opacity=opacity,
+                height=height,
+                cam_v_angle=cam_v_angle,
+                cam_h_angle=cam_h_angle,
+                cam_distance=cam_distance,
+                max_view_distance=max_view_distance,
+                key='example2')
 
 
 
