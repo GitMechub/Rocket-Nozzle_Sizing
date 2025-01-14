@@ -48,7 +48,9 @@ import cadquery as cq
 from cadquery import exporters
 import pyvista as pv
 
+import streamlit_stl
 from streamlit_stl import stl_from_file
+from streamlit_stl import stl_from_text
 
 # Last not null/empty list value
 def last_valid(lst):
