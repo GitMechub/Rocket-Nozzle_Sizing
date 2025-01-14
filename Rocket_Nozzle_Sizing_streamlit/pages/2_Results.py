@@ -310,7 +310,7 @@ try:
                 cam_h_angle=-90,                                        # Ângulo horizontal (em graus) da câmera
                 cam_distance=None,                                      # Distância da câmera em relação ao objeto (padrão: 3x tamanho da bounding box)
                 height=500,                                             # Altura do quadro de visualização
-                max_view_distance=1000,                                 # Distância máxima de visualização para a câmera
+                max_view_distance=1000000000,                                 # Distância máxima de visualização para a câmera
                 key='disp_c_nozzle'                                                # Chave para o componente Streamlit
             )
 
