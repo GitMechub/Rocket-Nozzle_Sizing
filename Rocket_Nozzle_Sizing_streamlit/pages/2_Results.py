@@ -44,6 +44,8 @@ import matplotlib.pyplot as plt
 
 import plotly.graph_objects as go
 
+import tempfile
+
 import cadquery as cq
 from cadquery import exporters
 import pyvista as pv
@@ -281,6 +283,8 @@ try:
             
             ## Exportar como STL
             cq.exporters.export(tubeira, str(path)+'/conical_nozzle_3d.stl')
+            _, path_ = tempfile.mkstemp(suffix='.stl')
+            cq.exporters.export(tubeira, path_)
             
             #displayCAD(str(path)+"/display_conical_nozzle_3d.stl")
             
@@ -310,7 +314,7 @@ try:
                   )
                 
             stl_from_file(
-                file_path=f"{str(path)}/conical_nozzle_3d.stl",  # Caminho para o arquivo STL
+                file_path=path_,  # Caminho para o arquivo STL
                 color="#D20103",                                        # Cor do modelo STL (valor hexadecimal)
                 material="material",                                    # Estilo do material ('material', 'flat' ou 'wireframe')
                 auto_rotate=True,                                       # Habilitar rotação automática do modelo STL
@@ -1022,31 +1026,6 @@ except:
 
     pass
 
-file_path = f"{str(path)}/display_bell_nozzle_3d.stl"
-# Carregar o arquivo STL para visualização
-try:
-    with open(file_path, "rb") as stl_file:
-        stl_data = stl_file.read()  # Ler o conteúdo do arquivo STL
-        
-        # Visualizar o modelo STL
-        stl_from_text(
-            text=stl_data,
-            color="#D20103",                                        # Cor do modelo STL (valor hexadecimal)
-            material="material",                                    # Estilo do material ('material', 'flat' ou 'wireframe')
-            auto_rotate=True,                                       # Habilitar rotação automática do modelo STL
-            opacity=1.0,                                            # Opacidade do modelo STL (de 0 a 1)
-            shininess=100,                                          # Brilho do destaque especular, ao usar o estilo 'material'
-            cam_v_angle=60,                                         # Ângulo vertical (em graus) da câmera
-            cam_h_angle=-90,                                        # Ângulo horizontal (em graus) da câmera
-            cam_distance=None,                                      # Distância da câmera em relação ao objeto (padrão: 3x tamanho da bounding box)
-            height=500,                                             # Altura do quadro de visualização
-            max_view_distance=1000,                                 # Distância máxima de visualização para a câmera
-            key=None                                                # Chave para o componente Streamlit
-        )
-except FileNotFoundError:
-    st.error(f"File not found: {file_path}")
-except Exception as e:
-    st.error(f"An error occurred: {e}")
 
 
 
