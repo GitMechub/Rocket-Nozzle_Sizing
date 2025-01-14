@@ -265,9 +265,7 @@ try:
             
             ## Fechar o sketch, caso necessário
             conical_nozzle = sketch.close().assemble(tag="face")
-            st.write('test')
             cq.exporters.export(conical_nozzle, str(path)+'/conical_nozzle_sketch.STEP')
-            st.write('test2')
 
             
             ## 3D
@@ -300,7 +298,7 @@ try:
                   )
             
             stl_from_file(
-                file_path=step_file,          # Path to the STL file
+                file_path=str(path)+'/display_conical_nozzle_3d.stl',          # Path to the STL file
                 color='#FF9900',                 # Color of the STL file (hexadecimal value)
                 material='material',             # Material of the STL file ('material', 'flat', or 'wireframe')
                 auto_rotate=True,                # Enable auto-rotation of the STL model
