@@ -280,7 +280,7 @@ try:
             tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
             
             ## Exportar como STL
-            cq.exporters.export(tubeira, str(path)+'/display_conical_nozzle_3d.stl')
+            cq.exporters.export(tubeira, str(path)+'/conical_nozzle_3d.stl')
             
             #displayCAD(str(path)+"/display_conical_nozzle_3d.stl")
             
