@@ -298,7 +298,7 @@ try:
                   )
             
             stl_from_file(
-                file_path=display_conical_nozzle_3d.stl',          # Path to the STL file
+                file_path=display_conical_nozzle_3d.stl,          # Path to the STL file
                 color='#FF9900',                 # Color of the STL file (hexadecimal value)
                 material='material',             # Material of the STL file ('material', 'flat', or 'wireframe')
                 auto_rotate=True,                # Enable auto-rotation of the STL model
