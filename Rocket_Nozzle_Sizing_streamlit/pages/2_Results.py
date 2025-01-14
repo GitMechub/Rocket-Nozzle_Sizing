@@ -52,7 +52,6 @@ import pyvista as pv
 
 import streamlit_stl
 from streamlit_stl import stl_from_file
-from streamlit_stl import stl_from_text
 
 # Last not null/empty list value
 def last_valid(lst):
@@ -303,31 +302,6 @@ try:
                           mime="application/step"
                   )
                 
-            with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
-            
-                  # Create a download button
-                  st.download_button(
-                          label="Download Nozzle's Sketch",
-                          data=open(f"{str(path)}/conical_nozzle_3d.stl", "rb").read(),
-                          file_name="conical_nozzle_3d.stl",
-                          mime="application/step"
-                  )
-                
-            stl_from_file(
-                file_path=path_,  # Caminho para o arquivo STL
-                color="#0099FF",                                        # Cor do modelo STL (valor hexadecimal)
-                material="material",                                    # Estilo do material ('material', 'flat' ou 'wireframe')
-                auto_rotate=False,                                       # Habilitar rotação automática do modelo STL
-                opacity=1.0,                                            # Opacidade do modelo STL (de 0 a 1)
-                shininess=100,                                          # Brilho do destaque especular, ao usar o estilo 'material'
-                cam_v_angle=60,                                         # Ângulo vertical (em graus) da câmera
-                cam_h_angle=-90,                                        # Ângulo horizontal (em graus) da câmera
-                cam_distance=None,                                      # Distância da câmera em relação ao objeto (padrão: 3x tamanho da bounding box)
-                height=500,                                             # Altura do quadro de visualização
-                max_view_distance=1000,                                 # Distância máxima de visualização para a câmera
-                key='disp_c_nozzle'                                                # Chave para o componente Streamlit
-            )
-
             st.write(table_conical_dimensions)
     
     
