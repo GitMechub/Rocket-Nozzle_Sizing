@@ -280,7 +280,7 @@ try:
             tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
             
             ## Exportar como STL
-            exporters.export(tubeira, str(path)+'/display_conical_nozzle_3d.stl')
+            cq.exporters.export(tubeira, str(path)+'/display_conical_nozzle_3d.stl')
             
             #displayCAD(str(path)+"/display_conical_nozzle_3d.stl")
             
@@ -298,7 +298,20 @@ try:
                           file_name="conical_nozzle_sketch.STEP",
                           mime="application/step"
                   )
+            # DOWNLOAD SKETCH
+            st.markdown("Nozzle's Sketch .STEP :")
+            with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
             
+                  # Export to a STEP file
+                  step_file = str(path)+'/display_conical_nozzle_3d.stl'
+            
+                  # Create a download button
+                  st.download_button(
+                          label="Download Nozzle's Sketch",
+                          data=open(step_file, "rb").read(),
+                          file_name="display_conical_nozzle_3d.stl",
+                          mime="application/stl"
+                  )  
             success = stl_from_file(
                 file_path=f"{str(path)}/display_conical_nozzle_3d.stl",  # Caminho para o arquivo STL
                 color="#FF9900",                                        # Cor do modelo STL (valor hexadecimal)
