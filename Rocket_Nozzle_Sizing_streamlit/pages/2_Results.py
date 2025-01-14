@@ -303,7 +303,7 @@ try:
             with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
             
                   # Export to a STEP file
-                  step_file = str(path)+'/display_conical_nozzle_3d.stl'
+                  step_file = str(path)+'/conical_nozzle_3d.stl'
             
                   # Create a download button
                   st.download_button(
@@ -313,7 +313,7 @@ try:
                           mime="application/stl"
                   )  
             success = stl_from_file(
-                file_path=f"{str(path)}/display_conical_nozzle_3d.stl",  # Caminho para o arquivo STL
+                file_path=f"{str(path)}/conical_nozzle_3d.stl",  # Caminho para o arquivo STL
                 color="#FF9900",                                        # Cor do modelo STL (valor hexadecimal)
                 material="material",                                    # Estilo do material ('material', 'flat' ou 'wireframe')
                 auto_rotate=True,                                       # Habilitar rotação automática do modelo STL
