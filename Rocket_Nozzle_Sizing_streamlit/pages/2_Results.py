@@ -1041,7 +1041,7 @@ try:
             cam_distance=None,                                      # Distância da câmera em relação ao objeto (padrão: 3x tamanho da bounding box)
             height=500,                                             # Altura do quadro de visualização
             max_view_distance=1000,                                 # Distância máxima de visualização para a câmera
-            key='disp_c_nozzle'                                                # Chave para o componente Streamlit
+            key=None                                                # Chave para o componente Streamlit
         )
 except FileNotFoundError:
     st.error(f"File not found: {file_path}")
