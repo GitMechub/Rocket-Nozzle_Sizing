@@ -1031,16 +1031,17 @@ try:
         # Visualizar o modelo STL
         stl_from_text(
             text=stl_data,
-            color=color,
-            material=material,
-            auto_rotate=auto_rotate,
-            opacity=opacity,
-            height=height,
-            cam_v_angle=cam_v_angle,
-            cam_h_angle=cam_h_angle,
-            cam_distance=cam_distance if cam_distance > 0 else None,  # Valor padrão None se não especificado
-            max_view_distance=max_view_distance,
-            key='example2'
+            color="#D20103",                                        # Cor do modelo STL (valor hexadecimal)
+            material="material",                                    # Estilo do material ('material', 'flat' ou 'wireframe')
+            auto_rotate=True,                                       # Habilitar rotação automática do modelo STL
+            opacity=1.0,                                            # Opacidade do modelo STL (de 0 a 1)
+            shininess=100,                                          # Brilho do destaque especular, ao usar o estilo 'material'
+            cam_v_angle=60,                                         # Ângulo vertical (em graus) da câmera
+            cam_h_angle=-90,                                        # Ângulo horizontal (em graus) da câmera
+            cam_distance=None,                                      # Distância da câmera em relação ao objeto (padrão: 3x tamanho da bounding box)
+            height=500,                                             # Altura do quadro de visualização
+            max_view_distance=1000,                                 # Distância máxima de visualização para a câmera
+            key='disp_c_nozzle'                                                # Chave para o componente Streamlit
         )
 except FileNotFoundError:
     st.error(f"File not found: {file_path}")
