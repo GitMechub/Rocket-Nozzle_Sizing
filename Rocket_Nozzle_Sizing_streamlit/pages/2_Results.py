@@ -283,7 +283,7 @@ try:
             #displayCAD(str(path)+"/display_conical_nozzle_3d.stl")
             
             # DOWNLOAD SKETCH
-            st.markdown("Nozzle's Sketch .stp :")
+            st.markdown("Nozzle's Sketch .STEP :")
             with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
             
                   # Export to a STEP file
@@ -491,8 +491,6 @@ try:
     
             #
     
-            st.write(table_bell_dimensions)
-
             # Bell nozzle
 
             ## Combinar os pontos das listas bell_xy_1, bell_xy_2 e bell_xy_3
@@ -527,9 +525,9 @@ try:
                 sketch = sketch.segment(lista_pontos_b_[i], lista_pontos_b_[i + 1])
             
             ## Fechar o sketch, caso necessário
-            conical_nozzle = sketch.close().assemble(tag="face")
+            bell_nozzle = sketch.close().assemble(tag="face")
             
-            exporters.export(conical_nozzle, str(path)+'/bell_nozzle_sketch.STEP')
+            exporters.export(bell_nozzle, str(path)+'/bell_nozzle_sketch.STEP')
             
             
             ## 3D
@@ -544,10 +542,10 @@ try:
             ## Exportar como STL
             exporters.export(tubeira, str(path)+'/display_bell_nozzle_3d.stl')
             
-            displayCAD(str(path)+"/display_bell_nozzle_3d.stl")
+            #displayCAD(str(path)+"/display_bell_nozzle_3d.stl")
             
             # DOWNLOAD SKETCH
-            st.markdown("Nozzle's Sketch .stp :")
+            st.markdown("Nozzle's Sketch .STEP :")
             with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
 
                   # Export to a STEP file
@@ -560,7 +558,9 @@ try:
                           file_name="bell_nozzle_sketch.STEP",
                           mime="application/step"
                   )
-    
+                
+            st.write(table_bell_dimensions)
+            
     
         if nozzle_choice == "Spike":
     
@@ -872,8 +872,6 @@ try:
     
             #
     
-            st.write(table_spike_dimensions)
-
             # Spike nozzle
             
             ## Tratar os pontos da lista spike_xy_1
@@ -963,10 +961,10 @@ try:
             exporters.export(modelo_combinado, str(path)+'/display_spike_nozzle_3d.stl')
             
             ### Visualizar o modelo 3D
-            displayCAD(str(path)+"/display_spike_nozzle_3d.stl")
+            #displayCAD(str(path)+"/display_spike_nozzle_3d.stl")
 
             # DOWNLOAD SKETCH
-            st.markdown("Nozzle's Sketch .stp :")
+            st.markdown("Nozzle's Sketch .STEP :")
             with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
 
                   # Export to a STEP file
@@ -979,8 +977,9 @@ try:
                           file_name="spike_nozzle_sketch.STEP",
                           mime="application/step"
                   )
+                
+            st.write(table_spike_dimensions)
     
-
     # CEA Results
     from rocketcea.cea_obj import add_new_fuel, add_new_oxidizer
 
