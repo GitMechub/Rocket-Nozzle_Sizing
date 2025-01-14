@@ -286,7 +286,7 @@ try:
             
             # DOWNLOAD SKETCH
             st.markdown("Nozzle's Sketch .stp :")
-            '''with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
+            with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
             
                   # Export to a STEP file
                   step_file = str(path)+"/conical_nozzle_sketch.STEP"
@@ -297,7 +297,7 @@ try:
                           data=open(step_file, "rb").read(),
                           file_name="conical_nozzle_sketch.STEP",
                           mime="application/step"
-                  )'''
+                  )
             
             stl_from_file(
                 file_path=step_file,          # Path to the STL file
