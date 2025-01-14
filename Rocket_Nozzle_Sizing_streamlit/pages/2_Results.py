@@ -298,7 +298,17 @@ try:
                           file_name="conical_nozzle_sketch.STEP",
                           mime="application/step"
                   )
-
+                
+            with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
+            
+                  # Create a download button
+                  st.download_button(
+                          label="Download Nozzle's Sketch",
+                          data=open(f"{str(path)}/conical_nozzle_3d.stl", "rb").read(),
+                          file_name="conical_nozzle_3d.stl",
+                          mime="application/step"
+                  )
+                
             stl_from_file(
                 file_path=f"{str(path)}/conical_nozzle_3d.stl",  # Caminho para o arquivo STL
                 color="#D20103",                                        # Cor do modelo STL (valor hexadecimal)
