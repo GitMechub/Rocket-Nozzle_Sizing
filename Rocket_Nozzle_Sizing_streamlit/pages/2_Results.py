@@ -301,7 +301,7 @@ try:
 
             stl_from_file(
                 file_path=f"{str(path)}/conical_nozzle_3d.stl",  # Caminho para o arquivo STL
-                color="#FF9900",                                        # Cor do modelo STL (valor hexadecimal)
+                color="#D20103",                                        # Cor do modelo STL (valor hexadecimal)
                 material="material",                                    # Estilo do material ('material', 'flat' ou 'wireframe')
                 auto_rotate=True,                                       # Habilitar rotação automática do modelo STL
                 opacity=1.0,                                            # Opacidade do modelo STL (de 0 a 1)
