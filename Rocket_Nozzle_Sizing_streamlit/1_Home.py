@@ -45,7 +45,7 @@ import plotly.graph_objects as go
 
 import cadquery as cq
 
-st.title("Rocket Nozzle Sizing v1.0.0", anchor=False)
+st.title("Rocket Nozzle Sizing v1.1.0", anchor=False)
 st.subheader("Setup", divider="gray", anchor=False)
 
 #SETUP
@@ -56,7 +56,6 @@ if 'active_page' not in st.session_state:
     st.session_state.p_1 = 3000000.0
     st.session_state.f = 1750.0
     st.session_state.method = 1
-    st.session_state.spike_detail = 0
     st.session_state.f_name = 'Paraffin'
     st.session_state.o_name = 'N2O'
     st.session_state.of = 7.6
@@ -88,8 +87,6 @@ F = st.number_input(
 )
 
 Method = st.radio('Spike nozzle contour method', [1,2], help='1: [6][7] Method  |  2: [8][9] Method', key='method')
-
-spike_detail = st.checkbox('For a more refined spike nozzle contour curve', key='spike_detail')
 
 F_name = st.selectbox('Fuel', ['A50', 'Acetylene', 'AL', 'AP', 'B2H6', 'C2H2', 'C2H5OH', 'C2H6', 'C2H6_167', 'C3H8', 'CFx', 'CH3OH', 'CH4', 'CINCH', 'DMAZ', 'ECP_dimer', 'Ethanol', 'Gasoline', 'GCH4', 'GH2', 'GH2_160', 'H2', 'H2O', 'HTPB', 'Isopropanol', 'JetA', 'JP10', 'JP4', 'JPX', 'Kerosene', 'Kerosene90_H2O10', 'LCH4_NASA', 'LH2', 'M20', 'M20_NH3', 'Methanol', 'MHF3', 'MMH', 'N2H4', 'NH3', 'NITROMETHANE', 'Propane', 'Propylene', 'RP1', 'UDMH', 'Paraffin'],
                       key='f_name',
