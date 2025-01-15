@@ -160,17 +160,7 @@ try:
             conical_xy_2 = pd.DataFrame({'x (m)': [item/1000 for item in x2c], 'y (m)': [item/1000 for item in y2c]})
             conical_xy_3 = pd.DataFrame({'x (m)': [item/1000 for item in x3c], 'y (m)': [item/1000 for item in y3c]}) 
 
-            
-            # Coordinates plot
-            coordinates_conical = {'Coordinate': ['Start (x, y)', 'End (x, y)'],
-                                   'Curve 1': [(round(x1_start, 2), round(y1_start, 2)), (round(x1_end, 2), round(y1_end, 2))],
-                                   'Curve 2': [(round(x2_start, 2), round(y2_start, 2)), (round(x2_end, 2), round(y2_end, 2))],
-                                   'Curve 3': [(round(x3_start, 2), round(y3_start, 2)), (round(x3_end, 2), round(y3_end, 2))]}
-    
-            coordinates_conical = pd.DataFrame(coordinates_conical)
-            st.table(coordinates_conical)
-            #
-    
+              
             table_conical_dimensions = go.Figure(data=[go.Table(header=dict(
                 values=['Throat radius (mm)', 'Exit radius (mm)', 'Divergent Length (mm)', 'Curve 1 Radius (mm)',
                         'Curve 2 Radius (mm)'], height=40, align=['center'], line_color='darkslategray', fill_color='royalblue',
@@ -266,8 +256,8 @@ try:
                         material='material',
                         auto_rotate=False,
                         opacity=1,
-                        cam_h_angle=-180,
-                        cam_v_angle=270
+                        cam_h_angle=-180#,
+                        #cam_v_angle=270
                     )
                 except:
                     pass
@@ -311,6 +301,16 @@ try:
             plt.axis('equal')
             plt.grid(True)
             st.pyplot(plt.gcf())
+
+            # Coordinates plot
+            coordinates_conical = {'Coordinate': ['Start (x, y)', 'End (x, y)'],
+                                   'Curve 1': [(round(x1_start, 2), round(y1_start, 2)), (round(x1_end, 2), round(y1_end, 2))],
+                                   'Curve 2': [(round(x2_start, 2), round(y2_start, 2)), (round(x2_end, 2), round(y2_end, 2))],
+                                   'Curve 3': [(round(x3_start, 2), round(y3_start, 2)), (round(x3_end, 2), round(y3_end, 2))]}
+    
+            coordinates_conical = pd.DataFrame(coordinates_conical)
+            st.table(coordinates_conical)
+            #
 
         
         if nozzle_choice == "Bell":
