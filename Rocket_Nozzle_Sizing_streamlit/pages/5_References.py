@@ -37,3 +37,5 @@ st.write("8.  Haif, S., Kbab, H., & Benkhedda, A. (2022). \"Design and Numerical
 st.write("9.  Zebbiche, T. (2005). \"Supersonic Plug Nozzle Design.\" In 41st AIAA/ASME/SAE/ASEE Joint Propulsion Conference & Exhibit. DOI: < https://doi.org/10.2514/6.2005-4490 >.")
 st.write(":red[10.  RocketCEA < https://rocketcea.readthedocs.io/en/latest/ >.]")
 st.write(":red[11.  CEARUN < https://cearun.grc.nasa.gov/ >.]")
+st.write(":red[12.  CadQuery < https://cadquery.readthedocs.io/en/latest/index.html >.]")
+st.write(":red[13.  streamlit-stl < https://github.com/Lucandia/streamlit_stl >.]")
