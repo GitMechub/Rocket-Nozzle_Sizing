@@ -56,26 +56,6 @@ def last_valid(lst):
     return next((x for x in reversed(lst) if x and not isnan(x)), None) # or 'null'
 #
 
-def displayCAD(file_):
-
-  # Carregar arquivo CAD (pode ser .stl, .step, .vtk, etc.)
-  filename = file_  # Altere o formato do arquivo
-  mesh = pv.read(filename)
-
-  # Obter vértices e faces da malha
-  x, y, z = mesh.points.T
-  faces = mesh.faces.reshape(-1, 4)[:, 1:]
-
-  # Criar visualização interativa com Plotly
-  fig = go.Figure(data=[go.Mesh3d(
-      x=x, y=y, z=z,
-      i=faces[:, 0], j=faces[:, 1], k=faces[:, 2],
-      color='lightblue', opacity=0.5
-  )])
-
-  fig.update_layout(scene=dict(aspectmode='data'), title="Modelo Interativo")
-  fig.show()
-
 try:
     st.header("Rocket Nozzle Dimensions", anchor=False, divider='gray')
     with st.spinner('Loading...'):
