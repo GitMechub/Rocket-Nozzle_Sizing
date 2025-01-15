@@ -399,7 +399,38 @@ try:
             y3_end = y3b[-1]
     
             ###
+            
+            bell_xy_1 = pd.DataFrame({'x (m)': [item / 1000 for item in x1b], 'y (m)': [item / 1000 for item in y1b]})
+            bell_xy_2 = pd.DataFrame({'x (m)': [item / 1000 for item in x2b], 'y (m)': [item / 1000 for item in y2b]})
+            bell_xy_3 = pd.DataFrame({'x (m)': [item / 1000 for item in x3b], 'y (m)': [item / 1000 for item in y3b]})
+
+            # Table:
     
+            table_bell_dimensions = go.Figure(data=[go.Table(header=dict(
+                values=['Throat radius (mm)', 'Exit radius (mm)', 'Divergent Length (mm)', 'Divergent Theta n (°)',
+                        'Divergent Theta e (°)', 'Curve 1 Radius (mm)', 'Curve 2 Radius (mm)'], height=40, align=['center'],
+                line_color='darkslategray', fill_color='royalblue', font=dict(color='white', size=16)),
+                                                             cells=dict(values=[round(bell['Throat radius (mm)'], 2),
+                                                                                round(bell['Exit radius (mm)'], 2),
+                                                                                round(bell['Divergent Length (mm)'], 2),
+                                                                                round(bell['Divergent Theta n (°)'], 1),
+                                                                                round(bell['Divergent Theta e (°)'], 1),
+                                                                                round(bell['Curve 1 Radius (mm)'], 2),
+                                                                                round(bell['Curve 2 Radius (mm)'], 2)],
+                                                                        line_color='darkslategray', height=30,
+                                                                        fill_color=['lightcyan'],
+                                                                        font=dict(color='darkslategray', size=14)))
+                                                    ], layout=go.Layout(
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
+                                              )
+    
+            table_bell_dimensions.update_layout(title='Bell-shaped Nozzle Dimensions',
+                                                titlefont=dict(color='royalblue', size=28), height=300)
+    
+            #
+            
             # Bell nozzle
 
             ## Combinar os pontos das listas bell_xy_1, bell_xy_2 e bell_xy_3
@@ -478,11 +509,7 @@ try:
                     
             st.write(table_bell_dimensions)
 
-
-            bell_xy_1 = pd.DataFrame({'x (m)': [item / 1000 for item in x1b], 'y (m)': [item / 1000 for item in y1b]})
-            bell_xy_2 = pd.DataFrame({'x (m)': [item / 1000 for item in x2b], 'y (m)': [item / 1000 for item in y2b]})
-            bell_xy_3 = pd.DataFrame({'x (m)': [item / 1000 for item in x3b], 'y (m)': [item / 1000 for item in y3b]})
-    
+            
             # Download Button
     
             import io
@@ -537,34 +564,7 @@ try:
             st.table(coordinates_bell)
     
             #
-    
-            # Table:
-    
-            table_bell_dimensions = go.Figure(data=[go.Table(header=dict(
-                values=['Throat radius (mm)', 'Exit radius (mm)', 'Divergent Length (mm)', 'Divergent Theta n (°)',
-                        'Divergent Theta e (°)', 'Curve 1 Radius (mm)', 'Curve 2 Radius (mm)'], height=40, align=['center'],
-                line_color='darkslategray', fill_color='royalblue', font=dict(color='white', size=16)),
-                                                             cells=dict(values=[round(bell['Throat radius (mm)'], 2),
-                                                                                round(bell['Exit radius (mm)'], 2),
-                                                                                round(bell['Divergent Length (mm)'], 2),
-                                                                                round(bell['Divergent Theta n (°)'], 1),
-                                                                                round(bell['Divergent Theta e (°)'], 1),
-                                                                                round(bell['Curve 1 Radius (mm)'], 2),
-                                                                                round(bell['Curve 2 Radius (mm)'], 2)],
-                                                                        line_color='darkslategray', height=30,
-                                                                        fill_color=['lightcyan'],
-                                                                        font=dict(color='darkslategray', size=14)))
-                                                    ], layout=go.Layout(
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
-            )
-                                              )
-    
-            table_bell_dimensions.update_layout(title='Bell-shaped Nozzle Dimensions',
-                                                titlefont=dict(color='royalblue', size=28), height=300)
-    
-            #
-            
+                
     
         if nozzle_choice == "Spike":
     
