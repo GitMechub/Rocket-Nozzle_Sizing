@@ -482,7 +482,7 @@ try:
                                               )
     
             table_bell_dimensions.update_layout(title='Bell-shaped Nozzle Dimensions',
-                                                titlefont=dict(color='royalblue', size=28), height=270)
+                                                titlefont=dict(color='royalblue', size=28), height=300)
     
             #
     
@@ -529,7 +529,7 @@ try:
             
             ### Criar o esboço no CadQuery
             perfil = [(r, z) for z, r in lista_pontos_b_]  # Inverter para (r, z) para o plano XY
-            esboco = cq.Workplane("XZ").polyline(perfil).close()  # Fechar o perfil
+            esboco = cq.Workplane("XY").polyline(perfil).close()  # Fechar o perfil
             
             ### Revolver ao redor do eixo Z
             tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
@@ -871,7 +871,7 @@ try:
                                                )
     
             table_spike_dimensions.update_layout(title='Spike Nozzle Dimensions', titlefont=dict(color='royalblue', size=28),
-                                                 height=270)
+                                                 height=300)
     
             #
     
@@ -947,14 +947,14 @@ try:
             perfil1 = [(r, z) for z, r in lista_pontos_s_]  # (r, z) no plano XZ
             
             ### Criar o primeiro esboço no plano XZ e revolver
-            esboco1 = cq.Workplane("XZ").polyline(perfil1).close()
+            esboco1 = cq.Workplane("XY").polyline(perfil1).close()
             solido1 = esboco1.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # Revolve ao redor do eixo Z
             
             ### Lista de pontos para o segundo esboço
             perfil2 = [(r, z) for z, r in lista_pontos_s2_]  # Outra lista de pontos
             
             ### Criar o segundo esboço no mesmo plano XZ e revolver
-            esboco2 = cq.Workplane("XZ").polyline(perfil2).close()
+            esboco2 = cq.Workplane("XY").polyline(perfil2).close()
             solido2 = esboco2.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))
             
             ### Combinar os dois sólidos
