@@ -158,46 +158,9 @@ try:
     
             conical_xy_1 = pd.DataFrame({'x (m)': [item/1000 for item in x1c], 'y (m)': [item/1000 for item in y1c]})
             conical_xy_2 = pd.DataFrame({'x (m)': [item/1000 for item in x2c], 'y (m)': [item/1000 for item in y2c]})
-            conical_xy_3 = pd.DataFrame({'x (m)': [item/1000 for item in x3c], 'y (m)': [item/1000 for item in y3c]})
-    
-            # Download Button
-    
-            import io
-            buffer = io.BytesIO()
-    
-            with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:
-                conical_xy = pd.concat([conical_xy_1, conical_xy_2, conical_xy_3])
-                conical_xy.reset_index(drop=True, inplace=True)
-                conical_xy.to_excel(writer, sheet_name="CONICAL",index=False)
-                # Close the Pandas Excel writer and output the Excel file to the buffer
-                writer.close()
-    
-                st.download_button(
-                    label="Download Conical Nozzle Contour Coordinates",
-                    data=buffer,
-                    file_name="Conical_Nozzle_Contour_Coordinates.xlsx",
-                )
-    
-            # Plot Nozzle Chart
-    
-            plt.plot(x1c, y1c, label='Curve 1')
-            plt.plot(x2c, y2c, label='Curve 2')
-            plt.plot(x3c, y3c, label='Curve 3')
-            plt.scatter([x1_start, x1_end, x2_start, x2_end, x3_start, x3_end],
-                      [y1_start, y1_end, y2_start, y2_end, y3_start, y3_end],
-                      color=['blue', 'blue', 'orange', 'orange', 'green', 'green'],
-                      label='Start/End Points', s=30)
-    
-    
-            plt.xlabel('x (mm)')
-            plt.ylabel('y (mm)')
-            plt.title('Conical Nozzle')
-            plt.legend()
-            plt.axhline(y=0, color='black', linestyle='-.', linewidth=1.5)
-            plt.axis('equal')
-            plt.grid(True)
-            st.pyplot(plt.gcf())
-    
+            conical_xy_3 = pd.DataFrame({'x (m)': [item/1000 for item in x3c], 'y (m)': [item/1000 for item in y3c]}) 
+
+            
             # Coordinates plot
             coordinates_conical = {'Coordinate': ['Start (x, y)', 'End (x, y)'],
                                    'Curve 1': [(round(x1_start, 2), round(y1_start, 2)), (round(x1_end, 2), round(y1_end, 2))],
@@ -227,7 +190,7 @@ try:
                                                  )
     
             table_conical_dimensions.update_layout(title='Conical Nozzle Dimensions', titlefont=dict(color='royalblue', size=28),
-                                                   height=500)
+                                                   height=270)
     
             #
     
@@ -275,36 +238,81 @@ try:
             
             ### Criar o esboço no CadQuery
             perfil = [(r, z) for z, r in lista_pontos_c_]  # Inverter para (r, z) para o plano XY
-            esboco = cq.Workplane("XZ").polyline(perfil).close()  # Fechar o perfil
+            esboco = cq.Workplane("XY").polyline(perfil).close()  # Fechar o perfil
             
             ### Revolver ao redor do eixo Z
             tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
             
             ## Exportar como STL
-            cq.exporters.export(tubeira, str(path)+'/conical_nozzle_3d.stl')
-            _, path_ = tempfile.mkstemp(suffix='.stl')
-            cq.exporters.export(tubeira, path_)
-            
-            #displayCAD(str(path)+"/display_conical_nozzle_3d.stl")
+            cq.exporters.export(tubeira, 'conical_nozzle_3d.stl')
             
             # DOWNLOAD SKETCH
-            st.markdown("Nozzle's Sketch .STEP :")
             with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
             
-                  # Export to a STEP file
-                  step_file = str(path)+"/conical_nozzle_sketch.STEP"
-            
-                  # Create a download button
-                  st.download_button(
-                          label="Download Nozzle's Sketch",
-                          data=open(step_file, "rb").read(),
-                          file_name="conical_nozzle_sketch.STEP",
-                          mime="application/step"
-                  )
+                # Export to a STEP file
+                step_file = str(path)+"/conical_nozzle_sketch.STEP"
                 
+                # Create a download button
+                st.download_button(
+                      label="Download Nozzle's Sketch",
+                      data=open(step_file, "rb").read(),
+                      file_name="conical_nozzle_sketch.STEP",
+                      mime="application/step"
+                )
+                try:
+                    stl_from_file(
+                        file_path="conical_nozzle_3d.stl",
+                        color='#4169E1',
+                        material='material',
+                        auto_rotate=False,
+                        opacity=1,
+                        cam_h_angle=-180,
+                        cam_v_angle=270
+                    )
+                except:
+                    pass
+                    
             st.write(table_conical_dimensions)
+
+            # Download Button
+    
+            import io
+            buffer = io.BytesIO()
+    
+            with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:
+                conical_xy = pd.concat([conical_xy_1, conical_xy_2, conical_xy_3])
+                conical_xy.reset_index(drop=True, inplace=True)
+                conical_xy.to_excel(writer, sheet_name="CONICAL",index=False)
+                # Close the Pandas Excel writer and output the Excel file to the buffer
+                writer.close()
+    
+                st.download_button(
+                    label="Download Conical Nozzle Contour Coordinates",
+                    data=buffer,
+                    file_name="Conical_Nozzle_Contour_Coordinates.xlsx",
+                )
+    
+            # Plot Nozzle Chart
+    
+            plt.plot(x1c, y1c, label='Curve 1')
+            plt.plot(x2c, y2c, label='Curve 2')
+            plt.plot(x3c, y3c, label='Curve 3')
+            plt.scatter([x1_start, x1_end, x2_start, x2_end, x3_start, x3_end],
+                      [y1_start, y1_end, y2_start, y2_end, y3_start, y3_end],
+                      color=['blue', 'blue', 'orange', 'orange', 'green', 'green'],
+                      label='Start/End Points', s=30)
     
     
+            plt.xlabel('x (mm)')
+            plt.ylabel('y (mm)')
+            plt.title('Conical Nozzle')
+            plt.legend()
+            plt.axhline(y=0, color='black', linestyle='-.', linewidth=1.5)
+            plt.axis('equal')
+            plt.grid(True)
+            st.pyplot(plt.gcf())
+
+        
         if nozzle_choice == "Bell":
     
             x = np.array([5, 10, 15, 20, 25, 30, 35, 40, 45, 50])
