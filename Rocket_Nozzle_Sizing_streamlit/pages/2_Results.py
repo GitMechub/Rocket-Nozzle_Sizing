@@ -400,6 +400,85 @@ try:
     
             ###
     
+            # Bell nozzle
+
+            ## Combinar os pontos das listas bell_xy_1, bell_xy_2 e bell_xy_3
+            lista_pontos_b = [
+                (round(bell_xy_1['x (m)'][i]*1e3,4), round(bell_xy_1['y (m)'][i]*1e3,4))
+                for i in range(len(bell_xy_1['x (m)']))
+            ] + [
+                (round(bell_xy_2['x (m)'][i]*1e3,4), round(bell_xy_2['y (m)'][i]*1e3,4))
+                for i in range(len(bell_xy_2['x (m)']))
+            ] + [
+                (round(bell_xy_3['x (m)'][i]*1e3,4), round(bell_xy_3['y (m)'][i]*1e3,4))
+                for i in range(len(bell_xy_3['x (m)']))
+            ]
+            
+            ## Criar os pontos no eixo central
+            lista_pontos_b_centro = [(ponto[0], 0) for ponto in lista_pontos_b]
+            
+            ## Combinar lista_pontos com os pontos do eixo central (revertidos)
+            lista_pontos_b.extend(reversed(lista_pontos_b_centro))
+            
+            lista_pontos_b_ = [lista_pontos_b[0]]
+            ## Resultado
+            for i in range(1, len(lista_pontos_b)):
+                if lista_pontos_b[i] != lista_pontos_b[i - 1]:  # Comparar com o ponto anterior
+                    lista_pontos_b_.append(lista_pontos_b[i])
+            
+            
+            ## Adicionar segmentos entre os pontos
+            sketch = cq.Sketch()
+            
+            for i in range(len(lista_pontos_b_) - 1):
+                sketch = sketch.segment(lista_pontos_b_[i], lista_pontos_b_[i + 1])
+            
+            ## Fechar o sketch, caso necessário
+            bell_nozzle = sketch.close().assemble(tag="face")
+            
+            exporters.export(bell_nozzle, str(path)+'/bell_nozzle_sketch.STEP')
+            
+            
+            ## 3D
+            
+            ### Criar o esboço no CadQuery
+            perfil = [(r, z) for z, r in lista_pontos_b_]  # Inverter para (r, z) para o plano XY
+            esboco = cq.Workplane("XY").polyline(perfil).close()  # Fechar o perfil
+            
+            ### Revolver ao redor do eixo Z
+            tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
+            
+            ## Exportar como STL
+            cq.exporters.export(tubeira, 'bell_nozzle_3d.stl')
+            
+            # DOWNLOAD SKETCH
+            with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
+            
+                # Export to a STEP file
+                step_file = str(path)+"/bell_nozzle_sketch.STEP"
+                
+                # Create a download button
+                st.download_button(
+                      label="Download Bell Nozzle Sketch",
+                      data=open(step_file, "rb").read(),
+                      file_name="bell_nozzle_sketch.STEP",
+                      mime="application/step"
+                )
+                try:
+                    stl_from_file(
+                        file_path="bell_nozzle_3d.stl",
+                        color='#4169E1',
+                        material='material',
+                        auto_rotate=False,
+                        opacity=1,
+                        cam_h_angle=-180
+                    )
+                except:
+                    pass
+                    
+            st.write(table_bell_dimensions)
+
+
             bell_xy_1 = pd.DataFrame({'x (m)': [item / 1000 for item in x1b], 'y (m)': [item / 1000 for item in y1b]})
             bell_xy_2 = pd.DataFrame({'x (m)': [item / 1000 for item in x2b], 'y (m)': [item / 1000 for item in y2b]})
             bell_xy_3 = pd.DataFrame({'x (m)': [item / 1000 for item in x3b], 'y (m)': [item / 1000 for item in y3b]})
@@ -485,84 +564,6 @@ try:
                                                 titlefont=dict(color='royalblue', size=28), height=300)
     
             #
-    
-            # Bell nozzle
-
-            ## Combinar os pontos das listas bell_xy_1, bell_xy_2 e bell_xy_3
-            lista_pontos_b = [
-                (round(bell_xy_1['x (m)'][i]*1e3,4), round(bell_xy_1['y (m)'][i]*1e3,4))
-                for i in range(len(bell_xy_1['x (m)']))
-            ] + [
-                (round(bell_xy_2['x (m)'][i]*1e3,4), round(bell_xy_2['y (m)'][i]*1e3,4))
-                for i in range(len(bell_xy_2['x (m)']))
-            ] + [
-                (round(bell_xy_3['x (m)'][i]*1e3,4), round(bell_xy_3['y (m)'][i]*1e3,4))
-                for i in range(len(bell_xy_3['x (m)']))
-            ]
-            
-            ## Criar os pontos no eixo central
-            lista_pontos_b_centro = [(ponto[0], 0) for ponto in lista_pontos_b]
-            
-            ## Combinar lista_pontos com os pontos do eixo central (revertidos)
-            lista_pontos_b.extend(reversed(lista_pontos_b_centro))
-            
-            lista_pontos_b_ = [lista_pontos_b[0]]
-            ## Resultado
-            for i in range(1, len(lista_pontos_b)):
-                if lista_pontos_b[i] != lista_pontos_b[i - 1]:  # Comparar com o ponto anterior
-                    lista_pontos_b_.append(lista_pontos_b[i])
-            
-            
-            ## Adicionar segmentos entre os pontos
-            sketch = cq.Sketch()
-            
-            for i in range(len(lista_pontos_b_) - 1):
-                sketch = sketch.segment(lista_pontos_b_[i], lista_pontos_b_[i + 1])
-            
-            ## Fechar o sketch, caso necessário
-            bell_nozzle = sketch.close().assemble(tag="face")
-            
-            exporters.export(bell_nozzle, str(path)+'/bell_nozzle_sketch.STEP')
-            
-            
-            ## 3D
-            
-            ### Criar o esboço no CadQuery
-            perfil = [(r, z) for z, r in lista_pontos_b_]  # Inverter para (r, z) para o plano XY
-            esboco = cq.Workplane("XY").polyline(perfil).close()  # Fechar o perfil
-            
-            ### Revolver ao redor do eixo Z
-            tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
-            
-            ## Exportar como STL
-            cq.exporters.export(tubeira, 'bell_nozzle_3d.stl')
-            
-            # DOWNLOAD SKETCH
-            with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
-            
-                # Export to a STEP file
-                step_file = str(path)+"/bell_nozzle_sketch.STEP"
-                
-                # Create a download button
-                st.download_button(
-                      label="Download Bell Nozzle Sketch",
-                      data=open(step_file, "rb").read(),
-                      file_name="bell_nozzle_sketch.STEP",
-                      mime="application/step"
-                )
-                try:
-                    stl_from_file(
-                        file_path="bell_nozzle_3d.stl",
-                        color='#4169E1',
-                        material='material',
-                        auto_rotate=False,
-                        opacity=1,
-                        cam_h_angle=-180
-                    )
-                except:
-                    pass
-                    
-            st.write(table_bell_dimensions)
             
     
         if nozzle_choice == "Spike":
@@ -795,59 +796,7 @@ try:
     
             spike_xy_1 = pd.DataFrame({'x (m)': [item / 1000 for item in x1s], 'y (m)': [item / 1000 for item in y1s]})
             spike_xy_2 = pd.DataFrame({'x (m)': [item / 1000 for item in x2s], 'y (m)': [item / 1000 for item in y2s]})
-    
-            # Download Button
-    
-            import io
-            buffer = io.BytesIO()
-    
-            with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:
-                spike_xy_1.to_excel(writer, sheet_name="SPIKE - Curve 1",index=False)
-                spike_xy_2.to_excel(writer, sheet_name="SPIKE - Curve 2",index=False)
-    
-                # Close the Pandas Excel writer and output the Excel file to the buffer
-                writer.close()
-    
-                st.download_button(
-                    label="Download Spike Nozzle Contour Coordinates",
-                    data=buffer,
-                    file_name="Spike_Nozzle_Contour_Coordinates.xlsx",
-                )
-    
-            # Plot Nozzle Chart
-    
-            plt.plot(x1s, y1s, label='Curve 1')
-            plt.plot(x2s, y2s, label='Curve 2')
-    
-            plt.scatter([x1_start, x1_end, x2_start, x2_end, x150_start, x150_end],
-                        [y1_start, y1_end, y2_start, y2_end, y150_start, y150_end],
-                        color=['blue', 'blue', 'orange', 'orange', 'blue', 'blue'],
-                        label='Start/End Points', s=30)
-    
-            plt.xlabel('x (mm)')
-            plt.ylabel('y (mm)')
-            plt.title('Spike Nozzle')
-            plt.axhline(y=0, color='black', linestyle='-.', linewidth=1.5)
-            plt.legend()
-            plt.axis('equal')
-            plt.grid(True)
-            st.pyplot(plt.gcf())
-    
-            #
-    
-            # Coordinates plot
-    
-            coordinates_spike = {'Coordinate': ['Start (x, y)', 'End (x, y)'],
-                                 'Curve 1': [(round(x1_start, 2), round(y1_start, 2)), (round(x1_end, 2), round(y1_end, 2))],
-                                 'Curve 1 (50% length)': [(round(x150_start, 2), round(y150_start, 2)),
-                                                          (round(x150_end, 2), round(y150_end, 2))],
-                                 'Curve 2': [(round(x2_start, 2), round(y2_start, 2)), (round(x2_end, 2), round(y2_end, 2))]}
-    
-            coordinates_spike = pd.DataFrame(coordinates_spike)
-            st.table(coordinates_spike)
-    
-            #
-    
+        
             # Table:
     
             table_spike_dimensions = go.Figure(data=[go.Table(header=dict(
@@ -989,6 +938,59 @@ try:
                     pass
                     
             st.write(table_spike_dimensions)
+
+            
+            # Download Button
+    
+            import io
+            buffer = io.BytesIO()
+    
+            with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:
+                spike_xy_1.to_excel(writer, sheet_name="SPIKE - Curve 1",index=False)
+                spike_xy_2.to_excel(writer, sheet_name="SPIKE - Curve 2",index=False)
+    
+                # Close the Pandas Excel writer and output the Excel file to the buffer
+                writer.close()
+    
+                st.download_button(
+                    label="Download Spike Nozzle Contour Coordinates",
+                    data=buffer,
+                    file_name="Spike_Nozzle_Contour_Coordinates.xlsx",
+                )
+    
+            # Plot Nozzle Chart
+    
+            plt.plot(x1s, y1s, label='Curve 1')
+            plt.plot(x2s, y2s, label='Curve 2')
+    
+            plt.scatter([x1_start, x1_end, x2_start, x2_end, x150_start, x150_end],
+                        [y1_start, y1_end, y2_start, y2_end, y150_start, y150_end],
+                        color=['blue', 'blue', 'orange', 'orange', 'blue', 'blue'],
+                        label='Start/End Points', s=30)
+    
+            plt.xlabel('x (mm)')
+            plt.ylabel('y (mm)')
+            plt.title('Spike Nozzle')
+            plt.axhline(y=0, color='black', linestyle='-.', linewidth=1.5)
+            plt.legend()
+            plt.axis('equal')
+            plt.grid(True)
+            st.pyplot(plt.gcf())
+    
+            #
+    
+            # Coordinates plot
+    
+            coordinates_spike = {'Coordinate': ['Start (x, y)', 'End (x, y)'],
+                                 'Curve 1': [(round(x1_start, 2), round(y1_start, 2)), (round(x1_end, 2), round(y1_end, 2))],
+                                 'Curve 1 (50% length)': [(round(x150_start, 2), round(y150_start, 2)),
+                                                          (round(x150_end, 2), round(y150_end, 2))],
+                                 'Curve 2': [(round(x2_start, 2), round(y2_start, 2)), (round(x2_end, 2), round(y2_end, 2))]}
+    
+            coordinates_spike = pd.DataFrame(coordinates_spike)
+            st.table(coordinates_spike)
+    
+            #
     
     # CEA Results
     from rocketcea.cea_obj import add_new_fuel, add_new_oxidizer
