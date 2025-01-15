@@ -56,6 +56,7 @@ if 'active_page' not in st.session_state:
     st.session_state.p_1 = 3000000.0
     st.session_state.f = 1750.0
     st.session_state.method = 1
+    st.session_state.spike_detail = 0
     st.session_state.f_name = 'Paraffin'
     st.session_state.o_name = 'N2O'
     st.session_state.of = 7.6
