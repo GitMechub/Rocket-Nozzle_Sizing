@@ -24,7 +24,7 @@ The propulsive data is acquired using the RocketCEA library.
   [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=z66-aUrW6dE&t=58s)
 ___
 
-Este Jupyter Notebook permite que você projete três diferentes tipos de contornos de bocal com base nos parâmetros propulsivos do seu motor de foguete:
+Este código em Python permite que você projete três diferentes tipos de contornos de bocal com base nos parâmetros propulsivos do seu motor de foguete:
 - Cônico;
 - Em forma de sino;
 - Spike.
