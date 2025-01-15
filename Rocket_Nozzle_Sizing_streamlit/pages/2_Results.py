@@ -44,8 +44,6 @@ import matplotlib.pyplot as plt
 
 import plotly.graph_objects as go
 
-import tempfile
-
 import cadquery as cq
 from cadquery import exporters
 import pyvista as pv
@@ -244,7 +242,7 @@ try:
                 
                 # Create a download button
                 st.download_button(
-                      label="Download Nozzle's Sketch",
+                      label="Download Conical Nozzle Sketch",
                       data=open(step_file, "rb").read(),
                       file_name="conical_nozzle_sketch.STEP",
                       mime="application/step"
@@ -256,8 +254,7 @@ try:
                         material='material',
                         auto_rotate=False,
                         opacity=1,
-                        cam_h_angle=-180#,
-                        #cam_v_angle=270
+                        cam_h_angle=-180
                     )
                 except:
                     pass
@@ -485,7 +482,7 @@ try:
                                               )
     
             table_bell_dimensions.update_layout(title='Bell-shaped Nozzle Dimensions',
-                                                titlefont=dict(color='royalblue', size=28), height=500)
+                                                titlefont=dict(color='royalblue', size=28), height=270)
     
             #
     
@@ -538,25 +535,33 @@ try:
             tubeira = esboco.revolve(angleDegrees=360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))  # XZ é padrão no revolve!
             
             ## Exportar como STL
-            exporters.export(tubeira, str(path)+'/display_bell_nozzle_3d.stl')
-            
-            #displayCAD(str(path)+"/display_bell_nozzle_3d.stl")
+            cq.exporters.export(tubeira, 'bell_nozzle_3d.stl')
             
             # DOWNLOAD SKETCH
-            st.markdown("Nozzle's Sketch .STEP :")
             with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
-
-                  # Export to a STEP file
-                  step_file = str(path)+"/bell_nozzle_sketch.STEP"
-    
-                  # Create a download button
-                  st.download_button(
-                          label="Download Nozzle's Sketch",
-                          data=open(step_file, "rb").read(),
-                          file_name="bell_nozzle_sketch.STEP",
-                          mime="application/step"
-                  )
+            
+                # Export to a STEP file
+                step_file = str(path)+"/bell_nozzle_sketch.STEP"
                 
+                # Create a download button
+                st.download_button(
+                      label="Download Bell Nozzle Sketch",
+                      data=open(step_file, "rb").read(),
+                      file_name="bell_nozzle_sketch.STEP",
+                      mime="application/step"
+                )
+                try:
+                    stl_from_file(
+                        file_path="bell_nozzle_3d.stl",
+                        color='#4169E1',
+                        material='material',
+                        auto_rotate=False,
+                        opacity=1,
+                        cam_h_angle=-180
+                    )
+                except:
+                    pass
+                    
             st.write(table_bell_dimensions)
             
     
@@ -866,7 +871,7 @@ try:
                                                )
     
             table_spike_dimensions.update_layout(title='Spike Nozzle Dimensions', titlefont=dict(color='royalblue', size=28),
-                                                 height=500)
+                                                 height=270)
     
             #
     
@@ -955,27 +960,34 @@ try:
             ### Combinar os dois sólidos
             modelo_combinado = solido1.union(solido2)
             
-            ### Exportar como STL
-            exporters.export(modelo_combinado, str(path)+'/display_spike_nozzle_3d.stl')
+            ## Exportar como STL
+            cq.exporters.export(modelo_combinado, 'spike_nozzle_3d.stl')
             
-            ### Visualizar o modelo 3D
-            #displayCAD(str(path)+"/display_spike_nozzle_3d.stl")
-
             # DOWNLOAD SKETCH
-            st.markdown("Nozzle's Sketch .STEP :")
             with st.spinner('Wait for the download button for the Sketch of the Nozzle'):
-
-                  # Export to a STEP file
-                  step_file = str(path)+"/spike_nozzle_sketch.STEP"
-    
-                  # Create a download button
-                  st.download_button(
-                          label="Download Nozzle's Sketch",
-                          data=open(step_file, "rb").read(),
-                          file_name="spike_nozzle_sketch.STEP",
-                          mime="application/step"
-                  )
+            
+                # Export to a STEP file
+                step_file = str(path)+"/spike_nozzle_sketch.STEP"
                 
+                # Create a download button
+                st.download_button(
+                      label="Download Spike Nozzle Sketch",
+                      data=open(step_file, "rb").read(),
+                      file_name="spike_nozzle_sketch.STEP",
+                      mime="application/step"
+                )
+                try:
+                    stl_from_file(
+                        file_path="spike_nozzle_3d.stl",
+                        color='#4169E1',
+                        material='material',
+                        auto_rotate=False,
+                        opacity=1,
+                        cam_h_angle=-180
+                    )
+                except:
+                    pass
+                    
             st.write(table_spike_dimensions)
     
     # CEA Results
