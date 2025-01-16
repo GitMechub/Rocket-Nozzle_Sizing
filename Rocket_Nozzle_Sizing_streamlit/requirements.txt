@@ -10,5 +10,5 @@ rocketcea==1.2.0
 XlsxWriter==3.2.0
 cadquery==2.5.2
 pyvista==0.43.10
-streamlit-stl
+streamlit-stl==0.0.6
 
