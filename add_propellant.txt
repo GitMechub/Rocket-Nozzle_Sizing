@@ -23,3 +23,65 @@ fuel Dextrose(S)  C 6.0   H 12.0   O 6.0    wt%=65.00
 h,cal=-304416.35      t(k)=298.15  rho.g/cc=1.562
 oxid =KNO3(S)  K 1.0  N 1.0  O 3.0  wt%=35.00
 h,cal=-118219.39 t(k)=298.15 rho.g/cc=2.109@KNDX *;
+
+fuel NH4NO3         H  4.9968 O  3.7476 N  2.4984                   wt%=75.00
+h,cal=-109019.9966   t(k)=298.15   rho.g/cc=1.7250
+name (NH4)2CR2O7   H  3.1733 O  2.7766  N  0.7933  CR 0.7933        wt%=2.00
+h,cal=-168780.   t(k)=298.15   rho.g/cc=2.1500
+name A-20_GENPOL  C  4.5500  H  7.1000  O  2.3900                   wt%=7.24
+h,cal=-111000.   t(k)=298.15   rho.g/cc=1.0380
+name METHYL_ACRYLATE   C  4.6464  H  6.9696  O  2.3232              wt%=11.08
+h,cal=-111300.   t(k)=298.15   rho.g/cc=1.2000
+name POLYSTYRENE  C  7.6817  H  7.6817                              wt%=3.957
+h,cal=8000.   t(k)=298.15   rho.g/cc=1.0600
+name MAKP   C  5.3768  H 10.7535  O  1.5362  wt%=0.40
+h,cal=-134060.   t(k)=298.15   rho.g/cc=0.8500
+name CALCIUM_PHOSPHATE  P  0.6447  CA 0.9671 O  2.5790              wt%=0.50
+h,cal=-300500.   t(k)=298.15   rho.g/cc=3.1400
+name TIN_OCTOATE  C  3.9497 H  7.4057 O  0.9874 PB 0.0948 CU 0.1521 wt%=0.003
+h,cal=-76120.   t(k)=298.15   rho.g/cc=1.0000
+name LECITHIN  C  5.5611 H 11.1223 O  1.2692 N  0.1208              wt%=0.18
+h,cal=-63010.   t(k)=298.15   rho.g/cc=1.0220@AMT_2091 *;
+
+fuel NH4CLO4(I)       wt%=10.0
+name RDX    C 1.3506 H 2.7011 O 2.7011 N 2.7011  wt%=25.00
+h,cal=6610.     t(k)=298.15   rho.g/cc=1.8200
+name R-45(HTPB FROM_RPL_DATA) C 7.3165 H 10.3360 O 0.1063    wt%=65.00
+h,cal= 1200.0 t(k)=298.15 rho.g/cc=0.9220@AP10_RDX25_HTPB *;
+
+fuel ARC311  H 3.919935 C 2.237043 N 2.300870 O 2.309573  wt%=100.00
+h,cal= 3939.6  t(k)=298.15 rho.g/cc=1.634@ARC311 *;
+
+fuel ARC448  H 3.359766 C 2.052322 N 1.932190 O 2.806300  wt%=100.00
+h,cal= -36867.1  t(k)=298.15 rho.g/cc=1.537@ARC448 *;
+
+fuel ARC452  H 3.694563 C 2.469813 N 1.041212 O 3.251794  wt%=100.00
+h,cal= -67947.0  t(k)=298.15 rho.g/cc=1.473@ARC452 *;
+
+fuel ARC457  H 4.080395 C 1.238333 N 1.677693 O 3.593891
+wt%=100.00 h,cal= -80325.0 t(k)=298.15 rho.g/cc=1.594@ARC457 *;
+
+fuel = HAN N 2.0 H 4.0 O 4.0 wt%= 69.15
+h,cal=-80962. t(k)=298.15 rho.g/cc = 1.685
+name = MEOH C 1.0 H 4.0 O 1.0 wt%= 15.46
+h,cal=-57146. t(k)=298.15 rho.g/cc = 0.791
+name = water H 2.0 O 1.0 wt%= 14.80
+h,cal=-68256. t(k)=298.17 rho.g/cc=1.00
+name = AN H 4.0 N 2.0 O 3.0 wt%= 0.59
+h,cal=-87380. t(k)=298.17 rho.g/cc=1.725@HAN269 *;
+
+fuel = HAN C 0.064 H 4.296 N 2.062 O 4.1 P 0.008 wt%= 44.5
+h,cal=-93980. t(k)=298.15 rho.g/cc=1.685
+name = HEHN C 2.0 H 9.0 N 3.0 O 4.0 wt%= 44.5
+h,cal=-108000. t(k)=298.15 rho.g/cc=1.428
+name = WATER H 2.0 O 1.0 wt%= 11.0
+h,cal=-68000. t(k)=298.15 rho.g/cc=1.0@HAN315 *;
+
+fuel = diss UA 0.6667 H 2.0000 N 1.3333 wt%= 71.46
+h,cal=12094. t(k)=298.15 rho.g/cc = 1.004
+name = water H 2.0 O 1.0  wt%=0.5
+h,cal=-68308.  t(k)=298.15 rho.g/cc = 0.9998
+name = hydra H 4.0 N 2.0 wt%= 4.04
+h,cal=12094. t(k)=298.15 rho.g/cc = 1.004
+name = hydni N 3.000 H 5.000 O 3.000 wt%= 24.00
+h,cal=-50477. t(k)=298.15 rho.g/cc = 1.647@HPB24 *;
