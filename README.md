@@ -11,6 +11,8 @@ The code generates a drawing for each type of nozzle contour, a table with its m
 
 The propulsive data is acquired using the RocketCEA library.
 
+You can add custom propellants by editing the 'add_propellant.txt' file.
+
 - Tutorial Video: 
 
   [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/Crxc9OeuSTg)
@@ -33,6 +35,8 @@ O código gera um desenho para cada tipo de contorno de bocal, uma tabela com su
 
 Os dados propulsivos são adquiridos usando a biblioteca RocketCEA.
 
+Você pode adicionar novos propelentes editando o arquivo 'add_propellant.txt'.
+
 - Vídeo de Tutorial: 
 
   [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/Crxc9OeuSTg)
@@ -44,3 +48,4 @@ Os dados propulsivos são adquiridos usando a biblioteca RocketCEA.
 - Como você pode me ajudar a melhorar este código:
 
   [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=z66-aUrW6dE&t=58s)
+  
