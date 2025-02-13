@@ -37,6 +37,8 @@ The code generates a graph for each type of nozzle contour, a table with its mai
 
 The propulsive data is acquired using the RocketCEA library.
 
+You can add custom propellants by editing the 'add_propellant.txt' file.
+
 - Tutorial Video:
 
   [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/Crxc9OeuSTg)
