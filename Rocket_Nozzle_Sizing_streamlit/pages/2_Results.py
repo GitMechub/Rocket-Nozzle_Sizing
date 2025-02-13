@@ -26,7 +26,7 @@ st.markdown(hide_menu, unsafe_allow_html=True)
 
 import io
 
-from rocketcea.cea_obj import add_new_fuel, add_new_oxidizer
+from rocketcea.cea_obj import add_new_fuel, add_new_oxidizer, add_new_propellant
 
 from rocketcea.cea_obj_w_units import CEA_Obj
 
@@ -987,7 +987,7 @@ try:
 
         dadosCEA = ispObj.get_full_cea_output(Pc=P_1 * 1e-5, MR=OF, eps=initial_params['eps'], PcOvPe=P_1 / P_3,
                                               frozen=1, frozenAtThroat=1, pc_units='bar')
-        st.download_button("Download NASA's CEA Full Output", str(dadosCEA), file_name='CEA_Output')
+        st.download_button("Download NASA's CEA Full Output", str(dadosCEA), file_name='CEA_Output.txt')
 
     except:
         pass
