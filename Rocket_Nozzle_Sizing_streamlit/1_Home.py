@@ -25,7 +25,7 @@ hide_menu = '''
         '''
 st.markdown(hide_menu, unsafe_allow_html=True)
 
-from rocketcea.cea_obj import add_new_fuel, add_new_oxidizer
+from rocketcea.cea_obj import add_new_fuel, add_new_oxidizer, add_new_propellant
 
 from rocketcea.cea_obj_w_units import CEA_Obj
 
@@ -61,6 +61,92 @@ if 'active_page' not in st.session_state:
     st.session_state.o_name = 'N2O'
     st.session_state.of = 7.6
 
+###
+
+# add_propellant.txt file:
+
+###
+
+custom_options = []
+custom_options_f = []
+custom_options_o = []
+
+try:
+    data = []
+    with open("add_propellant.txt", "r", encoding="utf-8") as file:
+        # Pula as primeiras 5 linhas (ajuste se necessário)
+        for _ in range(5):
+            next(file)
+
+        section = []
+
+        for line in file:
+            line = line.strip()
+            if not line:  # Se a linha estiver vazia, processa a seção atual
+                if section:
+                    data.append(section)
+                    add_prop_ = "\n" + "\n".join(section)
+                    try:
+                        add_prop_name = add_prop_.split('@')[1].split(';')[0]
+                    except IndexError:
+                        add_prop_name = "unknown"
+                    add_prop = add_prop_.split('@')[0]
+
+                    # Decide qual função chamar com base no conteúdo de add_prop
+                    if "fuel " in add_prop and "oxid " in add_prop:
+                        add_new_propellant(add_prop_name, add_prop)
+                        custom_options.append(add_prop_name)
+                    elif "fuel " in add_prop:
+                        add_new_fuel(add_prop_name, add_prop)
+                        custom_options_f.append(add_prop_name)
+                    elif "oxid " in add_prop:
+                        add_new_oxidizer(add_prop_name, add_prop)
+                        custom_options_o.append(add_prop_name)
+
+                    section = []  # Reinicia a seção
+
+            else:
+                section.append(line)
+
+        # Se houver uma seção final sem linha vazia no fim do arquivo
+        if section:
+            data.append(section)
+            add_prop_ = "\n" + "\n".join(section)
+            try:
+                add_prop_name = add_prop_.split('@')[1].split(';')[0]
+            except IndexError:
+                add_prop_name = "unknown"
+            add_prop = add_prop_.split('@')[0]
+
+            if "fuel " in add_prop and "oxid " in add_prop:
+                add_new_propellant(add_prop_name, add_prop)
+                custom_options.append(add_prop_name)
+            elif "fuel " in add_prop:
+                add_new_fuel(add_prop_name, add_prop)
+                custom_options_f.append(add_prop_name)
+            elif "oxid " in add_prop:
+                add_new_oxidizer(add_prop_name, add_prop)
+                custom_options_o.append(add_prop_name)
+
+except Exception as e:
+    # Em caso de erro, utiliza dados padrão
+    card_str = """
+    fuel C20H42(S)  C 20.0   H 42.0    wt%=100.00
+    h,cal=-142242.1     t(k)=298.15   rho=788.6
+    """
+    p_name = "Paraffin"
+    add_new_fuel(p_name, card_str)
+    custom_options_f.append(p_name)
+
+    card_str = """
+    oxid NitrousOxide  N 2.0 O 1.0  wt%=100.00
+    h,cal= 19467.0 t(k)=298.15
+    """
+    p_name = "N2O_custom"
+    add_new_oxidizer(p_name, card_str)
+    custom_options_o.append(p_name)
+
+
 P_3 = st.number_input(
     label='Ambient pressure',
     format="%f",
@@ -89,15 +175,15 @@ F = st.number_input(
 
 Method = st.radio('Spike nozzle contour method', [1,2], help='1: [6][7] Method  |  2: [8][9] Method', key='method')
 
-F_name = st.selectbox('Fuel', ['A50', 'Acetylene', 'AL', 'AP', 'B2H6', 'C2H2', 'C2H5OH', 'C2H6', 'C2H6_167', 'C3H8', 'CFx', 'CH3OH', 'CH4', 'CINCH', 'DMAZ', 'ECP_dimer', 'Ethanol', 'Gasoline', 'GCH4', 'GH2', 'GH2_160', 'H2', 'H2O', 'HTPB', 'Isopropanol', 'JetA', 'JP10', 'JP4', 'JPX', 'Kerosene', 'Kerosene90_H2O10', 'LCH4_NASA', 'LH2', 'M20', 'M20_NH3', 'Methanol', 'MHF3', 'MMH', 'N2H4', 'NH3', 'NITROMETHANE', 'Propane', 'Propylene', 'RP1', 'UDMH', 'Paraffin'],
+F_name = st.selectbox('Fuel', ['A50', 'Acetylene', 'AL', 'AP', 'B2H6', 'C2H2', 'C2H5OH', 'C2H6', 'C2H6_167', 'C3H8', 'CFx', 'CH3OH', 'CH4', 'CINCH', 'DMAZ', 'ECP_dimer', 'Ethanol', 'Gasoline', 'GCH4', 'GH2', 'GH2_160', 'H2', 'H2O', 'HTPB', 'Isopropanol', 'JetA', 'JP10', 'JP4', 'JPX', 'Kerosene', 'Kerosene90_H2O10', 'LCH4_NASA', 'LH2', 'M20', 'M20_NH3', 'Methanol', 'MHF3', 'MMH', 'N2H4', 'NH3', 'NITROMETHANE', 'Propane', 'Propylene', 'RP1', 'UDMH']+custom_options+custom_options_f,
                       key='f_name',
-                      help='Select the fuel for the bipropellant system'
+                      help="Select the fuel for bipropellant systems or the propellant for solid/monopropellant systems (ends with *)."
 )
 
 O_name = st.selectbox(
-    'Oxidizer', ['90_H2O2', '98_H2O2', 'AIR', 'AIRSIMP', 'CLF3', 'CLF5', 'F2', 'GO2', 'H2O', 'H202', 'HAN315', 'HNO3', 'IRFNA', 'LO2', 'MON15', 'MON25', 'MON3', 'N2F4', 'N2H4', 'N2O', 'N2O3', 'N2O4', 'N2O_nbp', 'O2', 'OF2', 'Peroxide90', 'Peroxide98'],
+    'Oxidizer', ['90_H2O2', '98_H2O2', 'AIR', 'AIRSIMP', 'CLF3', 'CLF5', 'F2', 'GO2', 'H2O', 'H202', 'HAN315', 'HNO3', 'IRFNA', 'LO2', 'MON15', 'MON25', 'MON3', 'N2F4', 'N2H4', 'N2O', 'N2O3', 'N2O4', 'N2O_nbp', 'O2', 'OF2', 'Peroxide90', 'Peroxide98']+custom_options_o,
     key='o_name',
-    help="Select the oxidizer for the bipropellant system"
+    help="Select the oxidizer for bipropellant systems. Unnecessary for solid/monopropellant systems."
 )
 
 OF = st.number_input(
@@ -106,7 +192,7 @@ OF = st.number_input(
     format="%f",
     step=1.,
     key='of',
-    help="Oxidizer-to-fuel mass ratio in the combustion chamber"
+    help="Oxidizer-to-fuel mass ratio in the combustion chamber for bipropellant systems."
 )
 prop_num = 2
 
@@ -117,31 +203,6 @@ st.session_state['P_3'] = P_3
 run_button = st.button("Run")
 
 if run_button:
-
-    # Adding new propellants (CEA NASA):
-
-    ##  Adicionando Parafina e N2O no CEA:
-
-    custom_options = []
-
-    card_str = """
-    fuel C20H42(S)  C 20.0   H 42.0    wt%=100.00
-    h,cal=-142242.1     t(k)=298.15   rho=788.6
-    """
-    p_name = 'Paraffin'
-    add_new_fuel(p_name, card_str)
-    custom_options.append(p_name)
-
-    card_str = """
-    oxid NitrousOxide  N 2.0 O 1.0  wt%=100.00
-    h,cal= 19467.0 t(k)=298.15
-    """
-    p_name = 'N2O_custom'
-    add_new_oxidizer(p_name, card_str)
-    custom_options.append(p_name)
-
-
-    ###
 
     def calculate_initial_parameters(Prop, P_1, OF, P_3, F):
 
@@ -194,12 +255,18 @@ if run_button:
 
     from rocketcea.cea_obj_w_units import CEA_Obj
 
-    Prop = CEA_Obj(oxName=O_name, fuelName=F_name, pressure_units='Pa', cstar_units='m/s', density_units='g/cc', temperature_units='K')
+    Prop = CEA_Obj(propName=F_name, pressure_units='Pa', cstar_units='m/s', density_units='g/cc', temperature_units='K') if F_name.endswith(" *") else CEA_Obj(oxName=O_name, fuelName=F_name, pressure_units='Pa', cstar_units='m/s', density_units='g/cc', temperature_units='K')
 
     from rocketcea.cea_obj import CEA_Obj
-    ispObj = CEA_Obj(oxName=O_name, fuelName=F_name)
+    ispObj = CEA_Obj( propName=F_name ) if F_name.endswith(" *") else CEA_Obj(oxName=O_name, fuelName=F_name)
     st.session_state['IsoObj'] = ispObj
 
     initial_params = calculate_initial_parameters(Prop, P_1, OF, P_3, F)
+
+    # P_1 - eps error:
+    if initial_params['eps'] == 0:
+        st.error('Error: CEA Bad Solution for the selected chamber pressure')
+        initial_params = 0
+
     st.session_state['initial_params'] = initial_params
 
